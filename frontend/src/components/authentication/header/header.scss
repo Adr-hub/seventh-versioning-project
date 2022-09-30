@@ -1,0 +1,51 @@
+.logoWrapper {
+    width: 43%;
+    margin-left: 4.4%;
+    height: 450px;
+    overflow-y: hidden;
+
+    img {
+        width: 87%;
+        margin-left: 10%;
+        height: 450px;
+        position: relative;
+        bottom: 6.3%;
+        object-fit: contain;
+
+    }
+
+
+
+    @media screen and (max-width:992px) {
+
+        height: 230px;
+        margin-left: 0;
+        width: 100%;
+
+
+        img {
+            position: relative;
+            bottom: 47.3%;
+            object-fit: contain;
+            height: 440px;
+            width: 100%;
+            margin-left: 0;
+        }
+    }
+
+    @media screen and (max-width:768px) {
+
+        height: 230px;
+        margin-left: 0;
+        width: 100%;
+
+        img {
+            position: relative;
+            bottom: 24.3%;
+            object-fit: contain;
+            height: 404px;
+            width: 100%;
+            margin-left: 0;
+        }
+    }
+}

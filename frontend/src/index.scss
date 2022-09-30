@@ -1,0 +1,30 @@
+* {
+    box-sizing: border-box;
+    font-family: 'Lato', sans-serif;
+}
+
+#root {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh;
+}
+
+body {
+    width: auto;
+    height: 100vh;
+    margin: 0;
+    min-width: 300px;
+
+    @media screen and (max-width: 992px) {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100vh;
+    }
+
+    @media screen and (max-width: 768px) {
+
+        height: 100vh;
+    }
+}

@@ -1,0 +1,104 @@
+.email-errors {
+    font-size: medium;
+    color: red;
+    margin-top: 0;
+    margin-left: 3.5%;
+
+    +ul {
+        margin-top: 0;
+        margin-bottom: 1%;
+        margin-left: 2.5%;
+
+
+        li {
+            margin-bottom: 2%;
+        }
+
+        +ul {
+            margin-top: 0;
+            margin-left: 2.5%;
+
+            li {
+                margin-bottom: 2%;
+            }
+
+        }
+
+    }
+
+    @media screen and (max-width:992px) {
+        margin-left: 5.5%;
+
+        +ul {
+            margin-left: 4%;
+
+            +ul {
+                margin-left: 4%;
+            }
+        }
+
+
+    }
+
+}
+
+
+.password-errors {
+    font-size: medium;
+    color: red;
+    margin-top: 0;
+    margin-left: 3.5%;
+
+    +ul {
+        margin-top: 0;
+        margin-left: 2.5%;
+
+        li {
+            margin-bottom: 2%;
+        }
+    }
+
+    @media screen and (max-width:992px) {
+        margin-left: 5%;
+
+        +ul {
+            margin-left: 4%;
+            margin-left: 2.5%;
+
+            +ul {
+                margin-left: 4%;
+            }
+        }
+
+
+    }
+}
+
+.valid {
+    display: none;
+    width: 0;
+    height: 0;
+}
+
+.empty-form {
+    font-size: medium;
+    color: red;
+    margin-top: 0;
+    margin-left: 3.5%;
+
+    @media screen and (max-width:992px) {
+        margin-left: 5%;
+    }
+}
+
+
+.other {
+    font-size: medium;
+    color: red;
+    margin-top: 0;
+    margin-left: 3.5%;
+
+    @media screen and (max-width:992px) {
+        margin-left: 5%;
+    }
+}
