@@ -1,0 +1,38 @@
+.authenticationContent {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+
+    @media screen and (max-width:992px) {
+
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    @media screen and (max-width:768px) {
+
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+.container {
+    margin-left: 1%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    height: auto;
+    width: 45%;
+
+    @media screen and (max-width:992px) {
+
+        flex-direction: column;
+        align-items: flex-start;
+        width: 97%;
+    }
+
+    @media screen and (max-width:768px) {
+        margin-top: 7%;
+    }
+}

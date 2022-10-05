@@ -1,0 +1,21 @@
+.iconContainers {
+    border: 1.5px black solid;
+    display: inline-block;
+    vertical-align: baseline;
+    border-radius: 34px;
+    width: 30px;
+    height: 30px;
+    margin-bottom: 2%;
+    margin-right: 0.4%;
+
+    i {
+        display: flex;
+        justify-content: center;
+        margin-top: 6px;
+        transform: scale(1.10);
+    }
+
+    @media screen and (max-width:992px) {
+        margin-left: 1.4%;
+    }
+}

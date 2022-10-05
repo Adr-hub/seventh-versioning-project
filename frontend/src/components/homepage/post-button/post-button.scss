@@ -1,0 +1,31 @@
+.buttonContainer {
+    width: 33%;
+
+    button {
+        margin-left: 70%;
+        margin-top: 10.4px;
+        padding-top: 1.1%;
+        padding-bottom: 1.1%;
+        padding-left: 1.3%;
+        padding-right: 1.3%;
+        background-color: lighten($color: #4E5166, $amount: 5%);
+        color: white;
+        font-weight: bold;
+        border-radius: 18px;
+        border-color: transparent;
+        cursor: pointer;
+        transition-property: transform;
+        transition-duration: 0.02s;
+        transition-timing-function: ease-in;
+        transform: scale(1);
+
+        &:hover {
+            background-color: lighten($color: #4E5166, $amount: 8.3%);
+            transform: scaleY(0.988);
+        }
+    }
+
+    @media screen and (max-width:992px) {
+        display: none;
+    }
+}

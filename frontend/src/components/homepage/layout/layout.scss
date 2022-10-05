@@ -1,0 +1,26 @@
+.firstContainer {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0;
+    height: 115px;
+
+    @media screen and (max-width:992px) {
+        flex-direction: column;
+        height: 140px;
+    }
+}
+
+.secondContainer {
+    margin-top: 40px;
+    height: auto;
+    margin-bottom: 11%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+    @media screen and (max-width:992px) {
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 5%;
+    }
+}

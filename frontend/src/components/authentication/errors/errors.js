@@ -50,7 +50,7 @@ const Errors = (props) => {
         return (<p className="valid">No errors !</p>);
     }
     else if (props.error === 'other') {
-        return (<p className="other"></p>);
+        return (<p className="other">{' '}</p>);
     }
 
 }

@@ -1,0 +1,118 @@
+.responsiveFormContainer {
+    display: none;
+
+    @media screen and (max-width:992px) {
+        display: block;
+        width: 92%;
+        height: auto;
+        padding-left: 1.1%;
+        padding-right: 1.1%;
+        margin-top: 10%;
+        margin-bottom: 3%;
+
+        .notification {
+            border: 0.2px black solid;
+            border-bottom: 0;
+            border-radius: 22px 22px 0 0;
+            margin-bottom: 0;
+            font-weight: bold;
+            font-size: larger;
+            text-align: center;
+            padding-top: 1.14%;
+            padding-bottom: 1.14%;
+            color: #FD2D01;
+        }
+
+        form {
+            padding-top: 2.3%;
+            padding-left: 2.3%;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            border: 0.2px black solid;
+            border-top: 0;
+            border-radius: 0 0 22px 22px;
+
+            #title {
+                width: 60%;
+                margin-left: 1.1%;
+            }
+
+            #content {
+                width: 98.2%;
+                height: 170px;
+                resize: none;
+                margin-right: 5%;
+                margin-left: 1.1%;
+            }
+
+            #images {
+                width: 60%;
+                margin-bottom: 3%;
+                margin-left: 1%;
+            }
+
+            #description {
+                width: 60%;
+                margin-left: 1%;
+            }
+
+            .postButton {
+
+                margin-top: 6.4%;
+                margin-left: 38.9%;
+                margin-bottom: 3%;
+                border: 4px lighten(rgb(60, 58, 58), 7.3%) solid;
+                background-color: lighten(rgb(60, 58, 58), 7.3%);
+                color: white;
+                width: 149px;
+                padding: 1.2%;
+                cursor: pointer;
+                border-radius: 20px;
+                font-size: 15px;
+                font-weight: bold;
+            }
+        }
+    }
+
+    @media screen and (max-width:768px) {
+        width: 100%;
+        margin-top: 27%;
+
+        form {
+
+            #contentBlock {
+
+                flex-direction: column;
+
+                label:first-child {
+                    width: 100%;
+                }
+
+                label:nth-child(3) {
+                    width: 100%;
+
+                    input {
+                        font-size: 14.2px;
+                    }
+                }
+            }
+        }
+    }
+
+    .no-errors {
+        display: none;
+    }
+
+    .errors {
+        color: red;
+        position: relative;
+        left: 1%;
+        margin-top: 0;
+        text-align: center;
+        padding-top: 1.5%;
+        padding-left: 0px;
+        font-size: 18px;
+
+    }
+}

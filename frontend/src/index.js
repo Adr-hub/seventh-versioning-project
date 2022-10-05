@@ -2,19 +2,19 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
 import './index.scss';
-import AuthPage from './components/authentication/main/authentication';
+import Homepage from './components/homepage/layout/layout';
+import AuthPage from './components/authentication/layout/authentication';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import AxiosErrors from './components/backend-errors/backendErrors';
 const routing = createBrowserRouter([
   {
     path: '/intranet',
     element: <AuthPage />,
-    errorElement: <AxiosErrors />
+    errorElement: <div>There is an error !</div>
   },
   {
     path: '/homepage',
-    errorElement: <AxiosErrors />,
-    element: <div>HOMEPAGE</div>
+    errorElement: <div>There is an error !</div>,
+    element: <Homepage />
   }
 ])
 const root = ReactDOM.createRoot(document.getElementById('root'));

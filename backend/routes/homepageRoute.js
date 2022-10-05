@@ -1,4 +1,8 @@
 const expressRoutes = require('express');
-const postsHomepage = require('../controllers/homepage').homepage;
+const getHomepage = require('../controllers/homepage').homepagePosts;
+const postsHomepage = require('../controllers/homepage').posts;
+const images = require('../uploads/upload');
 const route = expressRoutes.Router();
-module.exports = route.get('/homepage', postsHomepage);
+const getPosts = route.get('/homepage/all', getHomepage);
+const postPost = route.post('/homepage/post', images, postsHomepage);
+module.exports = { getPosts, postPost };
