@@ -1,30 +1,36 @@
 import './post.scss';
-import axiosGetRequest from 'axios'
+import { useState, useEffect } from 'react'
 import testImage from '../../../images/icon.png';
+import getPosts from '../../../services/getRequests';
 const Post = () => {
-    axiosGetRequest('http://localhost:4200/homepage/all')
+    const [data, getData] = useState('');
+    useEffect(() => {
+        getPosts
+            .then((data) => {
+                console.log(data.status, 'RESPONSE');
 
-        .then((data) => {
-            console.log(data.status, 'RESPONSE');
-            if (data.status === 201) {
                 const dataArray = data.data;
-                dataArray.map((data) => {
+                let posts = dataArray.map((data) => {
                     return (<div className="postContainer" key={data._id}><div className="postTitle">{data.title}</div>
                         <div className="postContent">
-                            <div className="postText"><p>{data.message}</p></div><div className="postImage"><img alt="" src={testImage} />
+                            <div className="postText"><p>{data.message}</p></div><div className="postImage"><img alt="" src={data.image !== undefined ? data.image : testImage} />
                             </div>
                         </div>
-                        <div className="postInformations"><span className="postDescription">{data.description}</span><span className="postDate">{data.date}</span></div>
+                        <div className="postInformations"><span className="postDate">{Intl.DateTimeFormat('fr-FR', { dateStyle: 'full', timeStyle: 'short' }).format(data.date)}</span></div>
                     </div>)
                 })
+                getData(posts);
+
             }
 
-        })
-        .catch((error) => {
-            console.error(error);
+            )
+            .catch((error) => {
+                console.error(error);
+            })
+
+    }, []);
 
 
-        })
-
+    return data;
 }
 export default Post;

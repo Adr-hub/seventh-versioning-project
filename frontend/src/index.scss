@@ -8,6 +8,14 @@
     flex-direction: column;
     justify-content: space-between;
     height: 100vh;
+
+    @media screen and (max-width: 992px) {
+        height: auto;
+    }
+
+    @media screen and (max-width: 768px) {
+        height: auto;
+    }
 }
 
 body {
@@ -20,11 +28,11 @@ body {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        height: 100vh;
+        height: auto;
     }
 
     @media screen and (max-width: 768px) {
-
-        height: 100vh;
+        margin: 0;
+        height: auto;
     }
 }

@@ -4,4 +4,4 @@ const Navbar = () => {
     return (<nav><Link to="/list" className='listLink'>MY POST LIST</Link><Link to="/intranet" className='logoutLink'>LOGOUT</Link></nav>)
 };
 
-export default Navbar
+export default Navbar;

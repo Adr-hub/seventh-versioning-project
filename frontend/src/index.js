@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
 import './index.scss';
 import Homepage from './components/homepage/layout/layout';
-import AuthPage from './components/authentication/layout/authentication';
+import AuthPage from './components/authentication/layout/layout';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 const routing = createBrowserRouter([
   {

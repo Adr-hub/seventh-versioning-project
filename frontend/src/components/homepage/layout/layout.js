@@ -15,7 +15,7 @@ const Homepage = () => {
             <title>Homepage</title>
         </Helmet>
     </HelmetProvider><div className='firstContainer'><HomepageHeader /><Navbar /><Button propId={animation} propForm={form} /></div>
-        <div className='secondContainer'><main><Post /></main><PostForm propId={form} /><ResponsivePostForm /></div><Footer /></>
+        <div className='secondContainer'><main className='mainContainer'><Post /></main><PostForm propId={form} /><ResponsivePostForm /></div><Footer /></>
 };
 
 export default Homepage;

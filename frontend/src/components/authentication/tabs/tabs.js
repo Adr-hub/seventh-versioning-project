@@ -1,25 +1,29 @@
 import './tabs.scss';
+import { useRef } from 'react';
 const Tabs = (prop) => {
-    return (<div className="tabContainer"><button className="signUpDefaultButton" onClick={(ev) => {
+    const tabRef = useRef();
+    const signUpRef = useRef();
+    const loginRef = useRef();
+    return (<div className="tabContainer" ref={tabRef}><button ref={signUpRef} className="signUpDefaultButton" onClick={(ev) => {
         let selection = prop.page;
         selection('signUp');
         ev.stopPropagation();
 
-        if (ev.detail > 0 && !document.querySelector('.tabContainer').firstElementChild.classList.contains('signUpDefaultButton')) {
-            document.querySelector('.signUp').classList.replace('signUp', 'signUpClickedButton');
-            document.querySelector('.loginClickedButton').classList.replace('loginClickedButton', 'login');
+        if (ev.detail > 0 && signUpRef.current.className !== 'signUpDefaultButton') {
+            signUpRef.current.className = 'signUpClickedButton';
+            loginRef.current.className = 'login';
         }
-    }}>Sign up</button><button className="login" onClick={(ev) => {
+    }}>Sign up</button><button className="login" ref={loginRef} onClick={(ev) => {
         let selection = prop.page;
         selection('login');
 
-        if (ev.detail > 0 && document.querySelector('.tabContainer').firstElementChild.classList.contains('signUpDefaultButton')) {
-            document.querySelector('.signUpDefaultButton').classList.replace('signUpDefaultButton', 'signUpClickedButton');
+        if (ev.detail > 0 && signUpRef.current.className === 'signUpDefaultButton') {
+            signUpRef.current.className = 'signUpClickedButton';
         }
 
         if (ev.detail > 0) {
-            document.querySelector('.signUpClickedButton').classList.replace('signUpClickedButton', 'signUp');
-            document.querySelector('.login').classList.replace('login', 'loginClickedButton');
+            signUpRef.current.className = 'signUp';
+            loginRef.current.className = 'loginClickedButton';
         }
 
     }} >Login</button></div >);
