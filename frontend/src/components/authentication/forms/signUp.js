@@ -3,7 +3,7 @@ import Icons from '../icons/icons';
 import Errors from '../errors/errors';
 import { useNavigate } from 'react-router-dom';
 import { useState, useRef } from 'react';
-import registration from '../../../services/signRequest';
+import registration from '../../../services/signRequests';
 const SignUp = (prop) => {
     const [userError, createUserError] = useState('');
     const [passwordError, createPasswordError] = useState('none');

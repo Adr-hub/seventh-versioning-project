@@ -3,36 +3,11 @@
     font-family: 'Lato', sans-serif;
 }
 
-#root {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 100vh;
-
-    @media screen and (max-width: 992px) {
-        height: auto;
-    }
-
-    @media screen and (max-width: 768px) {
-        height: auto;
-    }
-}
-
 body {
-    width: auto;
-    height: 100vh;
     margin: 0;
     min-width: 300px;
 
-    @media screen and (max-width: 992px) {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        height: auto;
-    }
-
-    @media screen and (max-width: 768px) {
+    @media screen and (max-width:768px) {
         margin: 0;
-        height: auto;
     }
 }

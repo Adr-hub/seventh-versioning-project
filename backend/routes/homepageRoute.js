@@ -1,8 +1,14 @@
 const expressRoutes = require('express');
 const getHomepage = require('../controllers/homepage').homepagePosts;
 const submission = require('../controllers/homepage').postSubmission;
+const update = require('../controllers/homepage').updateData;
+const responsiveUpdate = require('../controllers/homepage').updateResponsiveData;
+const removing = require('../controllers/homepage').deletion;
 const images = require('../uploads/upload');
 const route = expressRoutes.Router();
 const getPosts = route.get('/homepage/all', getHomepage);
-const postPost = route.post('/homepage/post', images, submission);
-module.exports = { getPosts, postPost };
+const postPost = route.post('/homepage/posts', images, submission);
+const updatePosts = route.put('/homepage/posts', images, update);
+const updateResponsivePosts = route.put('/homepage/posts/:id', images, responsiveUpdate);
+const deletePosts = route.delete('/homepage/posts', removing);
+module.exports = { getPosts, postPost, updatePosts, updateResponsivePosts, deletePosts };

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState, useRef } from 'react';
 import './post-form.scss';
 import postsPost from '../../../services/postRequests';
+import updatePosts from '../../../services/putRequest';
 const PostForm = (prop) => {
     let postCreation = useNavigate();
     const [postTitle, getPostTitle] = useState('');
@@ -12,7 +13,12 @@ const PostForm = (prop) => {
     if (prop.propId === '' || prop.propId === 'unanimate') {
         return undefined;
     }
-    else if (prop.propId === 'animate') {
+    else if (prop.propId === 'animate' || prop.propId === 'modify') {
+
+        if (postMessage.length >= 341) {
+            messageErrorRef.current.textContent = "Your post is too long ! 342 characters allowed.";
+        }
+
         return (<div className='postFormContainer'><form method='post' encType="multipart/form-data" onChange={(ev) => {
 
             if (messageErrorRef.current !== undefined) {
@@ -22,7 +28,7 @@ const PostForm = (prop) => {
             getPostTitle(ev.target.value);
         }} /></label><br />
 
-            <label htmlFor="content"><HomePageIcons propId="text" />Content<br /><textarea id="content" name="message" onInput={(ev) => {
+            <label htmlFor="content"><HomePageIcons propId="text" />Content<br /><textarea id="content" name="message" maxLength="342" minLength="12" onInput={(ev) => {
                 getPostMessage(ev.target.value);
             }}></textarea></label><br />
 
@@ -31,13 +37,12 @@ const PostForm = (prop) => {
             <input type="submit" value="Create the Post !" className='postButton' onClick={(ev) => {
                 ev.preventDefault();
 
-                if (postTitle !== '' && postMessage !== '') {
+                if (postTitle !== '' && postMessage !== '' && prop.posts === undefined && prop.propId !== 'modify') {
 
                     postsPost(postTitle, postMessage, fileInputRef.current.files[0])
                         .then((value) => {
                             console.log(value.status, 'RESPONSE');
-
-                            postCreation('/homepage');
+                            postCreation(0);
                         }
 
                         )
@@ -52,8 +57,34 @@ const PostForm = (prop) => {
 
                         })
                 }
+
+                else if (postTitle !== '' && postMessage !== '' && prop.posts !== undefined && prop.propId === 'modify') {
+                    let id = prop.posts;
+                    updatePosts(postTitle, postMessage, fileInputRef.current.files[0], id)
+                        .then((value) => {
+                            console.log(value.status, 'RESPONSE');
+                            ev.preventDefault();
+                            postCreation(0);
+                        }
+
+                        )
+                        .catch((error) => {
+
+                            if (postTitle !== '' || postMessage !== '') {
+                                getPostTitle('');
+                                getPostMessage('');
+                            }
+
+                            messageErrorRef.current.textContent = 'Error ! ' + error.message + ' !';
+
+                        })
+                }
+
+                else if (postMessage.length < 12 && postMessage.length !== 0 && postTitle.length !== 0) {
+                    messageErrorRef.current.textContent = "Your post is too short !";
+                }
                 else {
-                    messageErrorRef.current.textContent = "You didn't fill in the form !"
+                    messageErrorRef.current.textContent = "You didn't fill in the form !";
                 }
             }} />
         </form>

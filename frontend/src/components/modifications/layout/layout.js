@@ -1,16 +1,18 @@
-import HomePageIcons from '../icons/homepageIcons';
-import './responsivePostForm.scss';
+import './layout.scss';
+import HomePageIcons from '../../homepage/icons/homepageIcons';
+import Footer from "../../shared components/footer/footer"
 import { useState, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
-import postsPost from '../../../services/postRequests';
-const ResponsivePostForm = (prop) => {
-    let postCreation = useNavigate();
+import { useLocation/*, useNavigate*/ } from 'react-router-dom';
+import updateResponsivePosts from '../../../services/responsivePutRequests';
+const Modifications = (prop) => {
+    // let postCreation = useNavigate();
     const [postTitle, getPostTitle] = useState('');
     const [postMessage, getPostMessage] = useState('');
     const messageErrorRef = useRef();
     const fileInputRef = useRef();
+    const locate = useLocation();
 
-    return (<div className='responsiveFormContainer'><p id='notification'>Add a post !</p><form encType="multipart/form-data" onChange={(ev) => {
+    return (<><div className='responsiveModificationFormContainer'><p id='notification'>Modify your post !</p><form encType="multipart/form-data" onChange={(ev) => {
 
         if (messageErrorRef.current !== undefined) {
             messageErrorRef.current.textContent = '';
@@ -19,7 +21,7 @@ const ResponsivePostForm = (prop) => {
         getPostTitle(ev.target.value);
     }} /></label><br />
 
-        <label htmlFor="content"><HomePageIcons propId="text" />Content<br /><textarea id="content" name="message" maxLength="262" minLength="12" onInput={(ev) => {
+        <label htmlFor="content"><HomePageIcons propId="text" />Content<br /><textarea id="content" name="message" minLength="12" maxLength="262" onInput={(ev) => {
             getPostMessage(ev.target.value);
         }}></textarea></label><br />
 
@@ -29,13 +31,17 @@ const ResponsivePostForm = (prop) => {
             ev.preventDefault();
 
             if (postTitle !== '' && postMessage !== '' && postMessage.length > 12 && postMessage.length <= 341) {
-
-                postsPost(postTitle, postMessage, fileInputRef.current.files[0])
+                let id = locate.pathname.split('modifications/')[1];
+                updateResponsivePosts(postTitle, postMessage, fileInputRef.current.files[0], id)
                     .then((value) => {
                         console.log(value.status, 'RESPONSE');
-                        postCreation(0);
-                    })
+                        ev.preventDefault();
 
+                        window.location.replace('/homepage');
+                        // postCreation('/homepage');
+                    }
+
+                    )
                     .catch((error) => {
 
                         if (postTitle !== '' || postMessage !== '') {
@@ -45,17 +51,16 @@ const ResponsivePostForm = (prop) => {
 
                         messageErrorRef.current.textContent = 'Error ! ' + error.message + ' !';
 
-                    });
+                    })
             }
 
             else {
-
                 messageErrorRef.current.textContent = "You didn't fill in the form !";
             }
-
         }} /></div>
     </form>
         <p className="errors" ref={messageErrorRef}></p>
-    </div>);
-}
-export default ResponsivePostForm;
+    </div><Footer modifications={true} /></>);
+};
+
+export default Modifications;

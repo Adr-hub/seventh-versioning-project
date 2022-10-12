@@ -5,6 +5,7 @@ import './index.scss';
 import Homepage from './components/homepage/layout/layout';
 import AuthPage from './components/authentication/layout/layout';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import Modifications from './components/modifications/layout/layout';
 const routing = createBrowserRouter([
   {
     path: '/intranet',
@@ -15,6 +16,11 @@ const routing = createBrowserRouter([
     path: '/homepage',
     errorElement: <div>There is an error !</div>,
     element: <Homepage />
+  },
+  {
+    path: '/modifications/:id',
+    errorElement: <div>There is an error !</div>,
+    element: <Modifications />
   }
 ])
 const root = ReactDOM.createRoot(document.getElementById('root'));

@@ -14,10 +14,10 @@ const AuthPage = () => {
         <HelmetProvider>
             <Helmet><title>Groupomania</title></Helmet>
         </HelmetProvider>
-        <div className='authenticationContent'> <HeaderElement /><main className="container">
+        <div className='authPage'><div className='authenticationContent'> <HeaderElement /><main className="container">
             <Tabs page={tabSelection} />
             <SignUp pageSelection={tab} />
             <Login pageSelection={tab} />
-        </main></div><Footer /></React.Fragment>);
+        </main></div><Footer modifications={false} /></div></React.Fragment>);
 }
 export default AuthPage;

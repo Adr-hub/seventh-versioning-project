@@ -1,3 +1,19 @@
+.authPage {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh;
+
+    @media screen and (max-width: 992px) {
+        height: auto;
+    }
+
+    @media screen and (max-width: 768px) {
+        height: auto;
+    }
+}
+
+
 .authenticationContent {
     display: flex;
     flex-direction: row;

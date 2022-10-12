@@ -29,6 +29,11 @@
             width: 99%;
             height: 170px;
             resize: none;
+            line-break: loose;
+            white-space: normal;
+            overflow-wrap: break-word;
+            word-break: break-all;
+            hyphens: auto;
         }
 
         #description {
@@ -77,36 +82,40 @@
         }
     }
 
-    @keyframes formContainer {
-        0% {
-            width: 15%
-        }
+    @media screen and (max-width: 992px) {
+        display: none;
+    }
+}
 
-        100% {
-            width: 55%;
-        }
+@keyframes formContainer {
+    0% {
+        width: 15%
     }
 
-    @keyframes form {
-        5% {
-            transform: translateX(70%);
-        }
+    100% {
+        width: 55%;
+    }
+}
 
-        8% {
-            transform: translateX(75%);
-        }
+@keyframes form {
+    5% {
+        transform: translateX(70%);
+    }
 
-        75% {
-            transform: translateX(80%);
-            visibility: hidden;
-        }
+    8% {
+        transform: translateX(75%);
+    }
 
-        100% {
-            visibility: visible;
-            position: fixed;
-            left: 40.05%;
-            top: 18%;
-            transform: translateX(85%);
-        }
+    75% {
+        transform: translateX(80%);
+        visibility: hidden;
+    }
+
+    100% {
+        visibility: visible;
+        position: fixed;
+        left: 40.05%;
+        top: 18%;
+        transform: translateX(85%);
     }
 }
