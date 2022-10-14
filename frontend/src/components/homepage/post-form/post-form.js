@@ -3,13 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import { useState, useRef } from 'react';
 import './post-form.scss';
 import postsPost from '../../../services/postRequests';
-import updatePosts from '../../../services/putRequest';
+import updatePosts from '../../../services/putRequests';
 const PostForm = (prop) => {
     let postCreation = useNavigate();
     const [postTitle, getPostTitle] = useState('');
     const [postMessage, getPostMessage] = useState('');
     const messageErrorRef = useRef();
     const fileInputRef = useRef();
+
     if (prop.propId === '' || prop.propId === 'unanimate') {
         return undefined;
     }
@@ -37,7 +38,12 @@ const PostForm = (prop) => {
             <input type="submit" value="Create the Post !" className='postButton' onClick={(ev) => {
                 ev.preventDefault();
 
-                if (postTitle !== '' && postMessage !== '' && prop.posts === undefined && prop.propId !== 'modify') {
+
+                if (postMessage.length < 12 && postMessage.length !== 0 && postTitle.length !== 0) {
+                    messageErrorRef.current.textContent = "Your post is too short !";
+                }
+
+                else if (postTitle !== '' && postMessage !== '' && prop.propId === 'animate') {
 
                     postsPost(postTitle, postMessage, fileInputRef.current.files[0])
                         .then((value) => {
@@ -58,13 +64,13 @@ const PostForm = (prop) => {
                         })
                 }
 
-                else if (postTitle !== '' && postMessage !== '' && prop.posts !== undefined && prop.propId === 'modify') {
+                else if (postTitle !== '' && postMessage !== '' && prop.propId === 'modify') {
                     let id = prop.posts;
                     updatePosts(postTitle, postMessage, fileInputRef.current.files[0], id)
                         .then((value) => {
                             console.log(value.status, 'RESPONSE');
                             ev.preventDefault();
-                            postCreation(0);
+                            // postCreation(0);
                         }
 
                         )
@@ -80,9 +86,6 @@ const PostForm = (prop) => {
                         })
                 }
 
-                else if (postMessage.length < 12 && postMessage.length !== 0 && postTitle.length !== 0) {
-                    messageErrorRef.current.textContent = "Your post is too short !";
-                }
                 else {
                     messageErrorRef.current.textContent = "You didn't fill in the form !";
                 }

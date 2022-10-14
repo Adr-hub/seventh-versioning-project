@@ -12,7 +12,7 @@ const Modifications = (prop) => {
     const fileInputRef = useRef();
     const locate = useLocation();
 
-    return (<><div className='responsiveModificationFormContainer'><p id='notification'>Modify your post !</p><form encType="multipart/form-data" onChange={(ev) => {
+    return (<><div className='responsiveModificationFormContainer'><p className='notification'>Modify your post !</p><form encType="multipart/form-data" onChange={(ev) => {
 
         if (messageErrorRef.current !== undefined) {
             messageErrorRef.current.textContent = '';
@@ -30,7 +30,11 @@ const Modifications = (prop) => {
         <div className='submitButtonContainer'><input type="submit" value="Create the Post !" className='postButton' onClick={(ev) => {
             ev.preventDefault();
 
-            if (postTitle !== '' && postMessage !== '' && postMessage.length > 12 && postMessage.length <= 341) {
+            if (postMessage.length < 12 && postMessage.length !== 0 && postTitle.length !== 0) {
+                messageErrorRef.current.textContent = "Your post is too short !";
+            }
+
+            else if (postTitle !== '' && postMessage !== '') {
                 let id = locate.pathname.split('modifications/')[1];
                 updateResponsivePosts(postTitle, postMessage, fileInputRef.current.files[0], id)
                     .then((value) => {

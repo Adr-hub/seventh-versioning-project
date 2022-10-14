@@ -1,0 +1,19 @@
+{
+  "files": {
+    "main.css": "http://localhost:3000/intranet/static/css/main.bc15d255.css",
+    "main.js": "http://localhost:3000/intranet/static/js/main.2c6e379c.js",
+    "static/js/787.cda612ba.chunk.js": "http://localhost:3000/intranet/static/js/787.cda612ba.chunk.js",
+    "static/media/icon.png": "http://localhost:3000/intranet/static/media/icon.73c3731a5477b724aa42.png",
+    "static/media/icon-above-font_opt.png": "http://localhost:3000/intranet/static/media/icon-above-font_opt.79ea0d2dbbf23c934441.png",
+    "static/media/icon-left-font-monochrome-white.png": "http://localhost:3000/intranet/static/media/icon-left-font-monochrome-white.5e5204e38ca40e4aaf8b.png",
+    "static/media/icon-left-font-monochrome-black.png": "http://localhost:3000/intranet/static/media/icon-left-font-monochrome-black.5fa0e785c1f35ebd48f9.png",
+    "index.html": "http://localhost:3000/intranet/index.html",
+    "main.bc15d255.css.map": "http://localhost:3000/intranet/static/css/main.bc15d255.css.map",
+    "main.2c6e379c.js.map": "http://localhost:3000/intranet/static/js/main.2c6e379c.js.map",
+    "787.cda612ba.chunk.js.map": "http://localhost:3000/intranet/static/js/787.cda612ba.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.bc15d255.css",
+    "static/js/main.2c6e379c.js"
+  ]
+}

@@ -1,11 +1,13 @@
 .postContainer {
     border: 0.2px black solid;
-    width: 63%;
-    margin-left: 28%;
+    width: 76%;
+    margin-left: 22%;
     padding-top: 0.4%;
     border-radius: 35px 35px 21px 21px;
     overflow-y: hidden;
+    overflow-x: hidden;
     margin-bottom: 8%;
+    // border: 2px blue solid;
 
     .postTitle {
         background-color: lighten(#4E5166, 4%);
@@ -61,7 +63,7 @@
             img {
                 border: 1px black solid;
                 border-bottom: 1.20px black solid;
-                object-fit: contain;
+                object-fit: cover;
                 width: 100%;
                 height: 295px;
             }
@@ -97,7 +99,7 @@
         .modifications {
             background-color: darken(#FD2D01, 5.2%);
             color: white;
-            padding: 0.9%;
+            padding: 1.1%;
             border-radius: 12px;
             border: 0;
             margin-top: 1.42%;
@@ -108,17 +110,18 @@
                 padding: 1.51%;
                 margin-left: 2.42%;
                 margin-right: 4.42%;
+                margin-top: 0;
             }
         }
 
         .likes {
             background-color: lighten(#4E5166, 4%);
             color: white;
-            padding: 1.35%;
+            padding: 1.05%;
             border-radius: 12px;
             border: 0;
             margin-top: 1.42%;
-            margin-left: 1.42%;
+            margin-left: 3.02%;
             margin-right: 0.42%;
             margin-bottom: 0.4%;
 
@@ -127,6 +130,7 @@
                 padding-left: 2.2%;
                 padding-right: 2.2%;
                 margin-left: 2.42%;
+                margin-top: 0;
             }
         }
 
@@ -134,11 +138,11 @@
         .delete {
             background-color: darken(#FD2D01, 5.2%);
             color: white;
-            padding: 0.9%;
+            padding: 1.1%;
             border-radius: 12px;
             border: 0;
             margin-top: 1.42%;
-            margin-left: 65.70%;
+            margin-left: 57.5%;
             margin-bottom: 0.4%;
 
             @media screen and (max-width:992px) {
@@ -150,9 +154,14 @@
                 padding: 1.51%;
                 margin-left: 2.70%;
                 margin-right: 4.42%;
+                margin-top: 0;
             }
         }
 
+        @media screen and (max-width:768px) {
+            border-left: 0;
+            border-right: 0;
+        }
     }
 
     @media screen and (max-width:992px) {
@@ -167,6 +176,7 @@
         text-align: center;
         width: 100%;
         margin-bottom: 10%;
+        // border-left: 1.3px black solid;
 
         .postTitle {
             padding-top: 2.7%;
@@ -175,22 +185,38 @@
         }
 
         .postContent {
-
-            height: 340px;
+            margin-top: 0;
+            height: 397px; //340
             font-size: 14.05px;
+            flex-direction: column;
+
+
 
             .postText {
-
+                border-left: 0px black solid;
+                border-right: 0px black solid;
+                border-left: 0px black solid;
                 height: 347px;
+                order: 2;
+                width: auto;
+                text-align: justify;
             }
 
             .postImage {
 
                 height: 347.04px;
+                order: 1;
+                // margin-left: 30%;
+                width: auto;
+                // border: 2px red solid;
+                background-color: #4E5166;
+
 
                 img {
-
-                    height: 345px;
+                    object-fit: cover;
+                    height: 205px;
+                    width: 56%;
+                    // border: 2px green solid;
                 }
             }
         }

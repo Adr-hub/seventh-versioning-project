@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon --watch ./server.js --watch ./controllers/userCreation.js"
+    "start": "nodemon --watch ./server.js --watch ./controllers/userCreation.js --watch ./controllers/login.js --watch ./models/user.js --watch ./models/postUser.js --watch ./routes/loginRoute.js --watch ./routes/signUpRoute.js --watch ./routes/homepageRoute.js --watch ./controllers/homepage.js --watch ./uploads/upload.js"
   },
   "author": "Adrien Rival",
   "license": "UNLICENSED",

@@ -10,7 +10,7 @@ const ResponsivePostForm = (prop) => {
     const messageErrorRef = useRef();
     const fileInputRef = useRef();
 
-    return (<div className='responsiveFormContainer'><p id='notification'>Add a post !</p><form encType="multipart/form-data" onChange={(ev) => {
+    return (<div className='responsiveFormContainer'><p className='notification'>Add a post !</p><form encType="multipart/form-data" onChange={(ev) => {
 
         if (messageErrorRef.current !== undefined) {
             messageErrorRef.current.textContent = '';
@@ -28,7 +28,11 @@ const ResponsivePostForm = (prop) => {
         <div className='submitButtonContainer'><input type="submit" value="Create the Post !" className='postButton' onClick={(ev) => {
             ev.preventDefault();
 
-            if (postTitle !== '' && postMessage !== '' && postMessage.length > 12 && postMessage.length <= 341) {
+            if (postMessage.length < 12 && postMessage.length !== 0 && postTitle.length !== 0) {
+                messageErrorRef.current.textContent = "Your post is too short !";
+            }
+
+            else if (postTitle !== '' && postMessage !== '') {
 
                 postsPost(postTitle, postMessage, fileInputRef.current.files[0])
                     .then((value) => {

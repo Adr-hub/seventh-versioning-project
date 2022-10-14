@@ -3,7 +3,6 @@ import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom';
 import testImage from '../../../images/icon.png';
 import getPosts from '../../../services/getRequests';
-import deletePosts from '../../../services/deleteRequests';
 const Post = (prop) => {
     const [data, getData] = useState('');
     let animation = prop.propId;
@@ -28,10 +27,13 @@ const Post = (prop) => {
                         </div>
                         <div className="postButtonsContainer"><button className='modifications' onClick={(ev) => {
 
-                            if (ev.detail >= 1 && form !== 'modify' && window.innerWidth > 992) {
+                            if (ev.detail >= 1 && form !== 'modify' && window.innerWidth > 992 && form !== 'animate') {
                                 animation('modify');
                                 getPostId(ev.target.closest('.postContainer').getAttribute('data-id'));
                                 ev.target.textContent = 'Modifying';
+                            }
+                            if (ev.detail >= 1 && form !== 'modify' && form === 'animate') {
+                                ev.preventDefault();
                             }
                             if (ev.detail >= 1 && form === 'modify' && ev.target.textContent === 'Modifying') {
                                 ev.target.textContent = 'Modify';
@@ -43,18 +45,10 @@ const Post = (prop) => {
                             }
                         }}>Modify</button><button className="delete" onClick={(ev) => {
 
+                            let deletionActivation = prop.deleteState;
+                            deletionActivation(true);
                             if (ev.detail >= 1) {
-                                deletePosts(ev.target.closest('.postContainer').getAttribute('data-id'))
-                                    .then((value) => {
-                                        console.log(value.status, 'RESPONSE');
-                                        ev.target.closest('.postContainer').remove();
-                                    })
-
-                                    .catch((error) => {
-
-                                        console.error(error);
-
-                                    })
+                                getPostId(ev.target.closest('.postContainer').getAttribute('data-id'));
                             }
 
                         }}>Delete</button><button className="likes">Like</button></div>
@@ -71,7 +65,7 @@ const Post = (prop) => {
                 console.error(error);
             })
 
-    }, [animation, form, navigate, postRef, getPostId, postId]);
+    }, [animation, form, navigate, postRef, getPostId, postId, prop.deleteState]);
 
     return data;
 }

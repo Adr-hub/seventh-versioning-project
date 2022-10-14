@@ -8,7 +8,7 @@ const Button = (prop) => {
             animate('animate');
             ev.target.textContent = 'HIDE FORM';
         }
-        if (ev.detail >= 1 && form === 'animate') {
+        if (ev.detail >= 1 && form === 'animate' && form !== 'modify') {
             animate('unanimate');
             ev.target.textContent = 'POST FORM';
         }
