@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/static/css/main.bc15d255.css",
-    "main.js": "/static/js/main.116f53bc.js",
-    "static/js/787.cda612ba.chunk.js": "/static/js/787.cda612ba.chunk.js",
-    "static/media/icon.png": "/static/media/icon.73c3731a5477b724aa42.png",
-    "static/media/icon-above-font_opt.png": "/static/media/icon-above-font_opt.79ea0d2dbbf23c934441.png",
-    "static/media/icon-left-font-monochrome-white.png": "/static/media/icon-left-font-monochrome-white.5e5204e38ca40e4aaf8b.png",
-    "static/media/icon-left-font-monochrome-black.png": "/static/media/icon-left-font-monochrome-black.5fa0e785c1f35ebd48f9.png",
-    "index.html": "/index.html",
-    "main.bc15d255.css.map": "/static/css/main.bc15d255.css.map",
-    "main.116f53bc.js.map": "/static/js/main.116f53bc.js.map",
-    "787.cda612ba.chunk.js.map": "/static/js/787.cda612ba.chunk.js.map"
+    "main.css": "/seventh-versioning-project/intranet/static/css/main.bc15d255.css",
+    "main.js": "/seventh-versioning-project/intranet/static/js/main.994a09aa.js",
+    "static/js/787.cda612ba.chunk.js": "/seventh-versioning-project/intranet/static/js/787.cda612ba.chunk.js",
+    "static/media/icon.png": "/seventh-versioning-project/intranet/static/media/icon.73c3731a5477b724aa42.png",
+    "static/media/icon-above-font_opt.png": "/seventh-versioning-project/intranet/static/media/icon-above-font_opt.79ea0d2dbbf23c934441.png",
+    "static/media/icon-left-font-monochrome-white.png": "/seventh-versioning-project/intranet/static/media/icon-left-font-monochrome-white.5e5204e38ca40e4aaf8b.png",
+    "static/media/icon-left-font-monochrome-black.png": "/seventh-versioning-project/intranet/static/media/icon-left-font-monochrome-black.5fa0e785c1f35ebd48f9.png",
+    "index.html": "/seventh-versioning-project/intranet/index.html",
+    "main.bc15d255.css.map": "/seventh-versioning-project/intranet/static/css/main.bc15d255.css.map",
+    "main.994a09aa.js.map": "/seventh-versioning-project/intranet/static/js/main.994a09aa.js.map",
+    "787.cda612ba.chunk.js.map": "/seventh-versioning-project/intranet/static/js/787.cda612ba.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.bc15d255.css",
-    "static/js/main.116f53bc.js"
+    "static/js/main.994a09aa.js"
   ]
 }
