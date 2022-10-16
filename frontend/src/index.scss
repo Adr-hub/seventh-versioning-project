@@ -7,7 +7,24 @@ body {
     margin: 0;
     min-width: 300px;
 
+    @media screen and (max-width:992px) {
+        margin: 0;
+    }
+
     @media screen and (max-width:768px) {
         margin: 0;
+    }
+}
+
+.ReactModal__Overlay {
+    height: 750px;
+
+    @media screen and (max-width:992px) and (orientation: portrait) {
+        height: auto;
+    }
+
+    @media screen and (max-width:768px) and (orientation: landscape) {
+
+        height: 350px;
     }
 }

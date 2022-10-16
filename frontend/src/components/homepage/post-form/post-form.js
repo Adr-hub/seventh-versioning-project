@@ -70,7 +70,7 @@ const PostForm = (prop) => {
                         .then((value) => {
                             console.log(value.status, 'RESPONSE');
                             ev.preventDefault();
-                            // postCreation(0);
+                            postCreation(0);
                         }
 
                         )

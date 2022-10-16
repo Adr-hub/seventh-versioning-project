@@ -2,7 +2,17 @@
     width: 100%;
     height: auto;
     visibility: hidden;
-    animation: timeout 0.5s ease-out 0s forwards
+    animation: timeout 0.5s ease-out 0s forwards;
+
+    @media screen and (max-width: 992px) and (orientation: portrait) {
+        height: auto;
+        border-bottom: 4px rgb(60, 58, 58) solid;
+    }
+
+    @media screen and (max-width: 768px) and (orientation: portrait) {
+        height: auto;
+    }
+
 }
 
 .emptyHomepage {
@@ -16,6 +26,16 @@
     @media screen and (max-width:992px) {
         height: auto;
     }
+
+    @media screen and (max-width: 992px) and (orientation: portrait) {
+        height: 100vh;
+        border-bottom: 4px rgb(60, 58, 58) solid;
+    }
+
+    @media screen and (max-width: 768px) and (orientation: portrait) {
+        height: auto;
+    }
+
 }
 
 .firstContainer {
@@ -23,6 +43,10 @@
     justify-content: space-between;
     margin-bottom: 0;
     height: 115px;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background-color: white;
 
     @media screen and (max-width:992px) {
         flex-direction: column;
@@ -31,12 +55,14 @@
 }
 
 .secondContainer {
-    margin-top: 40px;
+    margin-top: 14px;
     height: auto;
     margin-bottom: 11%;
     width: 100%;
+    height: auto;
     display: flex;
     justify-content: space-between;
+    z-index: 1;
 
     @media screen and (max-width:992px) {
         flex-direction: column;

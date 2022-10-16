@@ -11,6 +11,16 @@
     @media screen and (max-width: 768px) {
         height: auto;
     }
+
+    @media screen and (max-width: 992px) and (orientation: portrait) {
+        height: 100vh;
+        border-bottom: 4px rgb(60, 58, 58) solid;
+    }
+
+    @media screen and (max-width: 768px) and (orientation: portrait) {
+        height: auto;
+    }
+
 }
 
 
