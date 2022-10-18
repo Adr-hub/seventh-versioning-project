@@ -4,7 +4,7 @@ const Button = (prop) => {
     return (<div className="buttonContainer"><button onClick={(ev) => {
         let animate = prop.propId;
         let form = prop.propForm;
-        if (ev.detail >= 1 && form !== 'animate' && form !== 'modify') {
+        if (ev.detail >= 1 && form !== 'animate' && form !== 'modify' && form !== 'update') {
             animate('animate');
             ev.target.textContent = 'HIDE FORM';
         }

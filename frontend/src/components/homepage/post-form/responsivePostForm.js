@@ -38,6 +38,7 @@ const ResponsivePostForm = (prop) => {
                     .then((value) => {
                         console.log(value.status, 'RESPONSE');
                         postCreation(0);
+                        window.scrollTo(0, 0);
                     })
 
                     .catch((error) => {

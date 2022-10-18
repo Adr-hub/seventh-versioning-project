@@ -1,36 +1,57 @@
 import HomePageIcons from '../icons/homepageIcons';
 import { useNavigate } from 'react-router-dom';
-import { useState, useRef } from 'react';
-import './post-form.scss';
-import postsPost from '../../../services/postRequests';
-const PostForm = (prop) => {
+import { useState, useRef, useEffect } from 'react';
+import './updateForm.scss';
+import updatePosts from '../../../services/putRequests';
+import getPost from '../../../services/getRequest';
+const UpdateForm = (prop) => {
+
     let postCreation = useNavigate();
     const [postTitle, getPostTitle] = useState('');
     const [postMessage, getPostMessage] = useState('');
     const messageErrorRef = useRef();
     const fileInputRef = useRef();
+    let putId = prop.updates;
+    useEffect(() => {
 
-    if (prop.propId === '' || prop.propId === 'unanimate') {
-        return undefined;
-    }
-    else if (prop.propId === 'animate' || prop.propId === 'modify') {
+        if (prop.propId === 'update') {
+            getPost(putId)
+                .then((form) => {
+                    console.log(form.status, 'DATA RETURNED');
 
-        if (postMessage.length >= 341) {
-            messageErrorRef.current.textContent = "Your post is too long ! 342 characters allowed.";
+                    if (form.data !== undefined) {
+
+                        let title = form.data.title;
+                        let message = form.data.message;
+
+                        getPostTitle(title);
+                        getPostMessage(message);
+                    }
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+
         }
+    }, [prop.propId, putId]);
 
-        return (<div className='postFormContainer'><form method='post' encType="multipart/form-data" onChange={(ev) => {
+    if (prop.propId === 'unanimate' && putId !== undefined) {
+        return undefined;
 
-            if (messageErrorRef.current !== undefined) {
-                messageErrorRef.current.textContent = '';
-            }
-        }}><label htmlFor="title"><HomePageIcons propId="title" />Title<br /><input type="text" id="title" name="title" onInput={(ev) => {
+    }
+
+    if (prop.propId === 'update') {
+        return (<div className='updateFormContainer'><form method='post' encType="multipart/form-data" onChange={(ev) => {
+
+
+        }}><label htmlFor="title"><HomePageIcons propId="title" />Title<br /><input type="text" id="title" value={postTitle} name="title" onInput={(ev) => {
             getPostTitle(ev.target.value);
 
         }} /></label><br />
 
-            <label htmlFor="content"><HomePageIcons propId="text" />Content<br /><textarea id="content" name="message" maxLength="342" minLength="12" onInput={(ev) => {
+            <label htmlFor="content"><HomePageIcons propId="text" />Content<br /><textarea id="content" name="message" value={postMessage} maxLength="342" minLength="12" onInput={(ev) => {
                 getPostMessage(ev.target.value);
+
             }}></textarea></label><br />
 
             <label htmlFor="images"><HomePageIcons propId="images" />Image<br /><input type="file" id="images" name="image" ref={fileInputRef} /></label><br />
@@ -38,16 +59,17 @@ const PostForm = (prop) => {
             <input type="submit" value="Create the Post !" className='postButton' onClick={(ev) => {
                 ev.preventDefault();
 
-
                 if (postMessage.length < 12 && postMessage.length !== 0 && postTitle.length !== 0) {
                     messageErrorRef.current.textContent = "Your post is too short !";
                 }
 
-                else if (postTitle !== '' && postMessage !== '' && prop.propId === 'animate') {
 
-                    postsPost(postTitle, postMessage, fileInputRef.current.files[0])
+                else if (postTitle !== '' && postMessage !== '' && prop.propId === 'update') {
+                    let id = putId;
+                    updatePosts(postTitle, postMessage, fileInputRef.current.files[0], id)
                         .then((value) => {
                             console.log(value.status, 'RESPONSE');
+                            ev.preventDefault();
                             postCreation(0);
                         }
 
@@ -63,15 +85,15 @@ const PostForm = (prop) => {
 
                         })
                 }
-
                 else {
                     messageErrorRef.current.textContent = "You didn't fill in the form !";
                 }
+
             }} />
         </form>
             <p className="errors" ref={messageErrorRef}></p>
         </div>);
     }
-
 }
-export default PostForm;
+
+export default UpdateForm;

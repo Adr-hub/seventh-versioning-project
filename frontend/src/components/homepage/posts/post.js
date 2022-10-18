@@ -9,6 +9,7 @@ const Post = (prop) => {
     let form = prop.propForm;
     let getPostId = prop.getPost;
     let postId = prop.posts;
+    let getPutId = prop.getUpdates;
     let postRef = useRef();
     const navigate = useNavigate();
 
@@ -32,12 +33,24 @@ const Post = (prop) => {
                                 getPostId(ev.target.closest('.postContainer').getAttribute('data-id'));
                                 ev.target.textContent = 'Modifying';
                             }
+
+                            if (ev.detail >= 1 && form !== 'update' && window.innerWidth > 992 && form !== 'animate') {
+                                animation('update');
+                                getPutId(ev.target.closest('.postContainer').getAttribute('data-id'));
+                                ev.target.textContent = 'Modifying';
+                            }
                             if (ev.detail >= 1 && form !== 'modify' && form === 'animate') {
                                 ev.preventDefault();
                             }
                             if (ev.detail >= 1 && form === 'modify' && ev.target.textContent === 'Modifying') {
                                 ev.target.textContent = 'Modify';
                                 animation('unanimate');
+                            }
+
+                            if (ev.detail >= 1 && form === 'update' && ev.target.textContent === 'Modifying') {
+                                ev.target.textContent = 'Modify';
+                                animation('unanimate');
+                                getPutId('modifying');
                             }
                             if (ev.detail >= 1 && window.innerWidth <= 992 && ev.target.textContent === 'Modify') {
                                 animation('removed');
@@ -65,7 +78,7 @@ const Post = (prop) => {
                 console.error(error);
             })
 
-    }, [animation, form, navigate, postRef, getPostId, postId, prop.deleteState]);
+    }, [animation, form, navigate, postRef, getPostId, postId, prop.deleteState, getPutId]);
 
     return data;
 }

@@ -1,0 +1,121 @@
+.updateFormContainer {
+    width: 70%;
+    position: relative;
+    left: 0.1%;
+    height: auto;
+    padding-left: 1.1%;
+    padding-right: 1.1%;
+    margin-bottom: 3%;
+    overflow-x: hidden;
+
+    form {
+        display: flex;
+        flex-direction: column;
+        width: 32.5%;
+        position: relative;
+        left: 2.5%;
+        padding-left: 2.3%;
+        border-top: 0.2px black solid;
+        border-left: 0.2px black solid;
+        border-bottom: 0.2px black solid;
+        animation: updateForm 0.25s ease-out forwards;
+
+        #title {
+            width: 60%;
+        }
+
+        #content {
+            width: 99%;
+            height: 170px;
+            resize: none;
+            line-break: loose;
+            white-space: normal;
+            overflow-wrap: break-word;
+            word-break: break-all;
+            hyphens: auto;
+        }
+
+        #description {
+            width: 60%;
+        }
+
+        .postButton {
+
+            margin-top: 0;
+            margin-left: 37.9%;
+            border: 4px lighten(rgb(60, 58, 58), 7.3%) solid;
+            background-color: lighten(rgb(60, 58, 58), 7.3%);
+            color: white;
+            width: 131px;
+            padding: 1.2%;
+            cursor: pointer;
+            border-radius: 20px;
+            font-size: 15px;
+            font-weight: bold;
+            margin-bottom: 0.4%;
+        }
+
+        @media screen and (max-width:992px) {
+            display: none;
+        }
+
+    }
+
+    .no-errors {
+        display: none;
+    }
+
+    .errors {
+        color: red;
+        position: fixed;
+        right: 0.85%;
+        top: 90px;
+        margin-top: 0;
+        text-align: center;
+        padding-left: 36px;
+        font-size: 17px;
+        visibility: visible;
+
+        @media screen and (max-width: 992px) {
+            display: none;
+        }
+    }
+
+    @media screen and (max-width: 992px) {
+        display: none;
+    }
+}
+
+@keyframes formContainer {
+    0% {
+        width: 15%
+    }
+
+    100% {
+        width: 55%;
+    }
+}
+
+@keyframes updateForm {
+    5% {
+        transform: translateX(70%);
+    }
+
+    8% {
+        transform: translateX(75%);
+    }
+
+    75% {
+        transform: translateX(80%);
+        visibility: hidden;
+    }
+
+    100% {
+        visibility: visible;
+        position: fixed;
+        left: 40.05%;
+        top: 18%;
+        transform: translateX(85%);
+        background-color: white
+    }
+}

@@ -12,9 +12,11 @@ import ResponsivePostForm from '../post-form/responsivePostForm';
 import ReactModal from 'react-modal';
 import Message from '../modal/message';
 import deletePosts from '../../../services/deleteRequests';
+import UpdateForm from '../update-form/updateForm';
 const Homepage = () => {
     const [form, animation] = useState('');
     const [postId, getPostId] = useState();
+    const [putId, getPutId] = useState();
     const [deletionActivation, getState] = useState(false);
     const [cancelation, getCancelButtonState] = useState();
     const emptyPageRef = useRef();
@@ -32,7 +34,7 @@ const Homepage = () => {
             emptyPageRef.current.className = 'homepage';
         }
     }}><div className='firstContainer'><HomepageHeader /><Navbar /><Button propId={animation} propForm={form} /></div>
-            <div className='secondContainer'><main className='mainContainer'><Post propId={animation} propForm={form} getPost={getPostId} posts={postId} deleteState={getState} /><ReactModal isOpen={deletionActivation} onRequestClose={() => {
+            <div className='secondContainer'><main className='mainContainer'><Post propId={animation} propForm={form} getPost={getPostId} posts={postId} deleteState={getState} getUpdates={getPutId} /><ReactModal isOpen={deletionActivation} onRequestClose={() => {
                 getCancelButtonState(true);
                 getState(false);
             }} onAfterClose={() => {
@@ -51,7 +53,7 @@ const Homepage = () => {
                 }
             }
             }
-                contentLabel='Confirmation dialog' ><Message deleteState={getState} cancelState={getCancelButtonState} /></ReactModal></main><PostForm propId={form} posts={postId} /><ResponsivePostForm propId={animation} propForm={form} /></div><Footer modifcations={false} /></div></>
+                contentLabel='Confirmation dialog' ><Message deleteState={getState} cancelState={getCancelButtonState} /></ReactModal></main><PostForm propId={form} posts={postId} updates={putId} /><UpdateForm propId={form} updates={putId} /><ResponsivePostForm propId={animation} propForm={form} /></div><Footer modifcations={false} /></div></>
 };
 
 export default Homepage;

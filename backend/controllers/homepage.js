@@ -9,6 +9,17 @@ exports.homepagePosts = (req, res) => {
         });
 };
 
+
+exports.existingPost = (req, res, next) => {
+
+    postUser.findById(req.params.id)
+        .then((data) => { res.status(201).json(data); })
+        .catch((error) => {
+            res.status(500).json(error);
+        });
+};
+
+
 exports.postSubmission = (req, res) => {
     if (req.file !== undefined) {
         let data = { title: req.body.title, message: req.body.message, image: req.protocol + '://' + req.get('host') + '/' + req.file.filename, date: Date.now() };

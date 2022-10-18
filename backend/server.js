@@ -33,7 +33,7 @@ expressFramework.use(static);
 
 expressFramework.use('/intranet/auth', registrationModule, connectionModule);
 
-expressFramework.use('/homepage', homepageModule.getPosts, homepageModule.postPost, homepageModule.updatePosts, homepageModule.updateResponsivePosts, homepageModule.updateResponsivePosts, homepageModule.deletePosts);
+expressFramework.use('/homepage', homepageModule.getPosts, homepageModule.postPost, homepageModule.updatePosts, homepageModule.updateResponsivePosts, homepageModule.updateResponsivePosts, homepageModule.deletePosts, homepageModule.getPost);
 
 
 const expressServer = httpProtocol.createServer(expressFramework).listen(4200);
