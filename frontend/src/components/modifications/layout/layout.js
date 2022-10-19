@@ -3,8 +3,7 @@ import HomePageIcons from '../../homepage/icons/homepageIcons';
 import Footer from "../../shared components/footer/footer"
 import { useState, useRef, useEffect } from 'react';
 import { useLocation/*, useNavigate*/ } from 'react-router-dom';
-import updateResponsivePosts from '../../../services/responsivePutRequests';
-import getPost from '../../../services/getRequest';
+import postService from '../../../services/postService';
 const Modifications = (prop) => {
     // let postCreation = useNavigate();
     const [postTitle, getPostTitle] = useState();
@@ -16,8 +15,8 @@ const Modifications = (prop) => {
 
 
     useEffect(() => {
-
-        getPost(id)
+        const sessionToken = window.localStorage.getItem('employee-token');
+        postService.getPost(id, sessionToken)
             .then((form) => {
                 console.log(form.status, 'DATA RETURNED');
 
@@ -60,7 +59,9 @@ const Modifications = (prop) => {
 
                 else if (postTitle !== '' && postMessage !== '') {
                     let id = locate.pathname.split('modifications/')[1];
-                    updateResponsivePosts(postTitle, postMessage, fileInputRef.current.files[0], id)
+                    const sessionToken = window.localStorage.getItem('employee-token');
+                    const employeeId = window.localStorage.getItem('employee-id');
+                    postService.updateResponsivePosts(postTitle, postMessage, fileInputRef.current.files[0], id, sessionToken, employeeId)
                         .then((value) => {
                             console.log(value.status, 'RESPONSE');
                             ev.preventDefault();

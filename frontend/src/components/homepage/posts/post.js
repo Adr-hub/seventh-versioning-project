@@ -2,7 +2,7 @@ import './post.scss';
 import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom';
 import testImage from '../../../images/icon.png';
-import getPosts from '../../../services/getRequests';
+import postService from '../../../services/postService';
 const Post = (prop) => {
     const [data, getData] = useState('');
     let animation = prop.propId;
@@ -14,8 +14,8 @@ const Post = (prop) => {
     const navigate = useNavigate();
 
     useEffect(() => {
-
-        getPosts
+        const sessionToken = window.localStorage.getItem('employee-token');
+        postService.getPosts(sessionToken)
             .then((data) => {
                 console.log(data.status, 'RESPONSE');
 
@@ -75,6 +75,7 @@ const Post = (prop) => {
             }
             )
             .catch((error) => {
+                navigate('/error');
                 console.error(error);
             })
 

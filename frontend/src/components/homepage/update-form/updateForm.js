@@ -2,8 +2,7 @@ import HomePageIcons from '../icons/homepageIcons';
 import { useNavigate } from 'react-router-dom';
 import { useState, useRef, useEffect } from 'react';
 import './updateForm.scss';
-import updatePosts from '../../../services/putRequests';
-import getPost from '../../../services/getRequest';
+import postService from '../../../services/postService';
 const UpdateForm = (prop) => {
 
     let postCreation = useNavigate();
@@ -15,7 +14,8 @@ const UpdateForm = (prop) => {
     useEffect(() => {
 
         if (prop.propId === 'update') {
-            getPost(putId)
+            const sessionToken = window.localStorage.getItem('employee-token');
+            postService.getPost(putId, sessionToken)
                 .then((form) => {
                     console.log(form.status, 'DATA RETURNED');
 
@@ -66,7 +66,9 @@ const UpdateForm = (prop) => {
 
                 else if (postTitle !== '' && postMessage !== '' && prop.propId === 'update') {
                     let id = putId;
-                    updatePosts(postTitle, postMessage, fileInputRef.current.files[0], id)
+                    const sessionToken = window.localStorage.getItem('employee-token');
+                    const employeeId = window.localStorage.getItem('employee-id');
+                    postService.updatePosts(postTitle, postMessage, fileInputRef.current.files[0], id, sessionToken, employeeId)
                         .then((value) => {
                             console.log(value.status, 'RESPONSE');
                             ev.preventDefault();

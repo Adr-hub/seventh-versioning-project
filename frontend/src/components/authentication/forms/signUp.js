@@ -3,7 +3,7 @@ import Icons from '../icons/icons';
 import Errors from '../errors/errors';
 import { useNavigate } from 'react-router-dom';
 import { useState, useRef } from 'react';
-import registration from '../../../services/signRequests';
+import authService from '../../../services/authService';
 const SignUp = (prop) => {
     const [userError, createUserError] = useState('');
     const [passwordError, createPasswordError] = useState('none');
@@ -97,11 +97,26 @@ const SignUp = (prop) => {
                 if (conditionsTest && userEmail !== '' && userEmail.length <= 70 && userEmail.length >= 10 && characterTest && userPassword !== '' && userPassword.length <= 45 && userPassword.length >= 7) {
 
                     createPasswordError('other');
-                    registration(userEmail, userPassword)
 
-                        .then((value) => {
-                            console.log(value.status, 'RESPONSE');
-                            navigation('/homepage');
+                    authService.registration(userEmail, userPassword)
+                        .then((res) => {
+                            console.log(res.status, 'RESPONSE');
+
+                            authService.login(userEmail, userPassword)
+                                .then((res) => {
+                                    console.log(res.status, 'RESPONSE');
+
+                                    window.localStorage.setItem('employee-id', res.data.employeeId);
+                                    window.localStorage.setItem('employee-token', res.data.token);
+
+                                    navigation('/homepage');
+
+                                })
+                                .catch((error) => {
+
+                                    console.log(error)
+                                })
+
                         })
                         .catch((error) => {
 
@@ -114,6 +129,7 @@ const SignUp = (prop) => {
                             errorRef.current.textContent = 'Registration error ! ' + error.message + ' !';
 
                         })
+
                 }
 
                 else {

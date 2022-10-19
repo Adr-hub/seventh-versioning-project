@@ -2,7 +2,7 @@ import HomePageIcons from '../icons/homepageIcons';
 import './responsivePostForm.scss';
 import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import postsPost from '../../../services/postRequests';
+import postService from '../../../services/postService';
 const ResponsivePostForm = (prop) => {
     let postCreation = useNavigate();
     const [postTitle, getPostTitle] = useState('');
@@ -33,8 +33,9 @@ const ResponsivePostForm = (prop) => {
             }
 
             else if (postTitle !== '' && postMessage !== '') {
-
-                postsPost(postTitle, postMessage, fileInputRef.current.files[0])
+                const sessionToken = window.localStorage.getItem('employee-token');
+                const employeeId = window.localStorage.getItem('employee-id');
+                postService.postsPost(postTitle, postMessage, fileInputRef.current.files[0], sessionToken, employeeId)
                     .then((value) => {
                         console.log(value.status, 'RESPONSE');
                         postCreation(0);

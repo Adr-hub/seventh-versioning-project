@@ -3,7 +3,7 @@ import Icons from '../icons/icons';
 import Errors from '../errors/errors';
 import { useNavigate } from 'react-router-dom';
 import { useState, useRef } from 'react';
-import login from '../../../services/loginRequest';
+import authService from '../../../services/authService';
 const Login = (prop) => {
 
     const [passwordError, createPasswordError] = useState('none');
@@ -36,9 +36,12 @@ const Login = (prop) => {
                 if (userEmail !== '' && userPassword !== '' && userPassword.length < 45 && userPassword.length > 7 && userEmail.length > 10 && userEmail.length < 70 && !userEmail.match(/\s/) && !userPassword.match(/\s/)) {
                     createPasswordError('empty');
 
-                    login(userEmail, userPassword)
-                        .then((value) => {
-                            console.log(value.status, 'RESPONSE');
+                    authService.login(userEmail, userPassword)
+                        .then((res) => {
+                            console.log(res.status, 'RESPONSE');
+
+                            window.localStorage.setItem('employee-id', res.data.employeeId);
+                            window.localStorage.setItem('employee-token', res.data.token);
 
                             navigation('/homepage');
 

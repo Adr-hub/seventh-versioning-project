@@ -18,8 +18,8 @@ exports.login = (req, res) => {
                     const secret = randomKey.randomBytes(32);
                     exports.secret = secret;
 
-                    let token = tokens.sign({ userId: String(registered._id) }, secret, { expiresIn: '3h' });
-                    res.status(201).json({ employeeId: registered._id, userId: String(registered._id), token: token });
+                    let token = tokens.sign({ employeeId: String(registered._id) }, secret, { expiresIn: '3h' });
+                    res.status(201).json({ employeeId: registered._id, token: token, message: 'Logged in !' });
                 }
 
                 else {

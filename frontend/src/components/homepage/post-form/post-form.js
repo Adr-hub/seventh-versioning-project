@@ -2,7 +2,7 @@ import HomePageIcons from '../icons/homepageIcons';
 import { useNavigate } from 'react-router-dom';
 import { useState, useRef } from 'react';
 import './post-form.scss';
-import postsPost from '../../../services/postRequests';
+import postService from '../../../services/postService';
 const PostForm = (prop) => {
     let postCreation = useNavigate();
     const [postTitle, getPostTitle] = useState('');
@@ -44,8 +44,9 @@ const PostForm = (prop) => {
                 }
 
                 else if (postTitle !== '' && postMessage !== '' && prop.propId === 'animate') {
-
-                    postsPost(postTitle, postMessage, fileInputRef.current.files[0])
+                    const sessionToken = window.localStorage.getItem('employee-token');
+                    const employeeId = window.localStorage.getItem('employee-id');
+                    postService.postsPost(postTitle, postMessage, fileInputRef.current.files[0], sessionToken, employeeId)
                         .then((value) => {
                             console.log(value.status, 'RESPONSE');
                             postCreation(0);

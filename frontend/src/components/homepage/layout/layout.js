@@ -11,8 +11,8 @@ import PostForm from '../post-form/post-form';
 import ResponsivePostForm from '../post-form/responsivePostForm';
 import ReactModal from 'react-modal';
 import Message from '../modal/message';
-import deletePosts from '../../../services/deleteRequests';
 import UpdateForm from '../update-form/updateForm';
+import postService from '../../../services/postService';
 const Homepage = () => {
     const [form, animation] = useState('');
     const [postId, getPostId] = useState();
@@ -40,7 +40,9 @@ const Homepage = () => {
             }} onAfterClose={() => {
 
                 if (!cancelation) {
-                    deletePosts(postId)
+                    const sessionToken = window.localStorage.getItem('employee-token');
+                    const employeeId = window.localStorage.getItem('employee-id');
+                    postService.deletePosts(postId, sessionToken, employeeId)
                         .then((value) => {
                             console.log(value.status, 'RESPONSE');
                             window.location.replace('/homepage');

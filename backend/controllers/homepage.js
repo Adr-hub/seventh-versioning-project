@@ -1,194 +1,329 @@
 const postUser = require('../models/postUser');
 const imageFolder = require('fs');
+
 exports.homepagePosts = (req, res) => {
-    postUser.find().then((data) => {
-        res.status(200).json(data);
-    })
-        .catch((error) => {
-            res.status(500).json(error);
-        });
+    if (req.get('Authorization') !== undefined && req.get('Authorization') !== 'Bearer null')
+        postUser.find().sort({ date: 'desc' }).then((data) => {
+            res.status(200).json(data);
+        })
+            .catch((error) => {
+                res.status(500).json(error);
+            });
+
+    else {
+        let error = new Error('Unauthorize authentication !');
+        res.status(403).json({ message: error.message });
+    }
+
 };
 
-
-exports.existingPost = (req, res, next) => {
-
-    postUser.findById(req.params.id)
-        .then((data) => { res.status(201).json(data); })
-        .catch((error) => {
-            res.status(500).json(error);
-        });
-};
 
 
 exports.postSubmission = (req, res) => {
-    if (req.file !== undefined) {
-        let data = { title: req.body.title, message: req.body.message, image: req.protocol + '://' + req.get('host') + '/' + req.file.filename, date: Date.now() };
+    if (req.body.employeeId.toString() === req.authorize.employeeId && req.get('Authorization') !== undefined && req.get('Authorization') !== 'Bearer null') {
+        if (req.file !== undefined) {
+            let data = { title: req.body.title, message: req.body.message, image: req.protocol + '://' + req.get('host') + '/' + req.file.filename, employeeId: req.body.employeeId.toString(), date: Date.now() };
 
-        new postUser(data).save()
+            new postUser(data).save()
 
-            .then(() => {
-                res.status(201).json({ message: 'Post submitted !' });
-            })
-            .catch((error) => {
-                res.status(500).json(error);
-            });
+                .then(() => {
+                    res.status(201).json({ message: 'Post submitted !' });
+                })
+                .catch((error) => {
+                    res.status(500).json(error);
+                });
+        }
+        else if (req.file === undefined) {
+            let data = { title: req.body.title, message: req.body.message, employeeId: req.body.employeeId.toString(), date: Date.now() };
+            new postUser(data).save()
+
+                .then(() => {
+                    res.status(201).json({ message: 'Post submitted !' });
+                })
+                .catch((error) => {
+                    res.status(500).json(error);
+                });
+        }
     }
-    else if (req.file === undefined) {
-        let data = { title: req.body.title, message: req.body.message, date: Date.now() };
-        new postUser(data).save()
-
-            .then(() => {
-                res.status(201).json({ message: 'Post submitted !' });
-            })
-            .catch((error) => {
-                res.status(500).json(error);
-            });
+    else {
+        let error = new Error('Submission error !');
+        res.status(500).json({ message: error.message });
     }
-
 };
 
 exports.updateData = (req, res, next) => {
+
     if (req.file !== undefined) {
-        let newData = { title: req.body.title, message: req.body.message, image: req.protocol + '://' + req.get('host') + '/' + req.file.filename };
+        if (req.body.employeeId.toString() === req.authorize.employeeId && req.get('Authorization') !== undefined && req.get('Authorization') !== 'Bearer null') {
+            let newData = { title: req.body.title, message: req.body.message, image: req.protocol + '://' + req.get('host') + '/' + req.file.filename, employeeId: req.body.employeeId.toString() };
 
-        postUser.findById(req.body.postId)
+            postUser.findById(req.body.postId)
 
-            .then((posts) => {
-                if (posts.image !== undefined) {
-                    imageFolder.unlink(process.cwd() + '/images/' + posts.image.slice(22), (err) => {
-                        if (err) {
-                            console.error(err, 'Removal error');
-                            res.status(500).json(err);
+                .then((posts) => {
+                    if (req.body.employeeId.toString() === posts.employeeId) {
+
+                        if (posts.image !== undefined) {
+                            imageFolder.unlink(process.cwd() + '/images/' + posts.image.slice(22), (err) => {
+                                if (err) {
+                                    console.error(err, 'Removal error');
+                                    res.status(500).json(err);
+                                }
+                            });
                         }
-                    });
-                }
-                postUser.findByIdAndUpdate(req.body.postId, {
-                    title: newData.title,
-                    message: newData.message,
-                    image: newData.image,
-                    date: Date.now()
+
+
+                        postUser.findByIdAndUpdate(req.body.postId, {
+                            title: newData.title,
+                            message: newData.message,
+                            image: newData.image,
+                            employeeId: newData.employeeId,
+                            date: Date.now()
+                        })
+
+                            .then(() => {
+                                res.status(201).json({ message: 'Successful update !' });
+                            })
+                            .catch((error) => {
+                                res.status(500).json(error);
+                            });
+
+                    }
+                    else {
+                        let error = new Error('Unauthorize modification !');
+                        res.status(403).json({ message: error.message });
+                    }
                 })
 
-                    .then(() => {
-                        res.status(201).json({ message: 'Successful update !' });
-                    })
-                    .catch((error) => {
-                        res.status(500).json(error);
-                    });
-            })
+                .catch((error) => {
+                    res.status(500).json(error);
+                });
+        }
+        else {
+            let error = new Error('Update error !');
+            res.status(500).json({ message: error.message });
+        }
 
-            .catch((error) => {
-                res.status(500).json(error);
-            });
     }
 
     else if (req.file === undefined) {
-        let newData = { title: req.body.title, message: req.body.message };
+        if (req.body.employeeId.toString() === req.authorize.employeeId && req.get('Authorization') !== undefined && req.get('Authorization') !== 'Bearer null') {
+            let newData = { title: req.body.title, message: req.body.message, employeeId: req.body.employeeId.toString() };
 
-        postUser.findById(req.body.postId)
+            postUser.findById(req.body.postId)
+                .then((posts) => {
+                    if (req.body.employeeId.toString() === posts.employeeId) {
+                        postUser.findByIdAndUpdate(req.body.postId, {
+                            title: newData.title,
+                            message: newData.message,
+                            employeeId: newData.employeeId,
+                            image: undefined,
 
-            .then(() => {
+                            date: Date.now()
 
-                postUser.findByIdAndUpdate(req.body.postId, {
-                    title: newData.title,
-                    message: newData.message,
-                    image: undefined,
-                    date: Date.now()
+                        })
+
+                            .then(() => {
+                                res.status(201).json({ message: 'Successful update !' });
+                            })
+                            .catch((error) => {
+                                res.status(500).json(error);
+                            });
+                    }
+
+                    else {
+                        let error = new Error('Unauthorize modification !');
+                        res.status(403).json({ message: error.message });
+                    }
 
                 })
 
-                    .then(() => {
-                        res.status(201).json({ message: 'Successful update !' });
-                    })
-                    .catch((error) => {
-                        res.status(500).json(error);
-                    });
-            })
-
-            .catch((error) => {
-                res.status(500).json(error);
-            });
+                .catch((error) => {
+                    res.status(500).json(error);
+                });
+        }
+        else {
+            let error = new Error('Update error !');
+            res.status(500).json({ message: error.message });
+        }
     }
-
 }
-
 
 exports.updateResponsiveData = (req, res, next) => {
 
     if (req.file !== undefined) {
-        let newData = { title: req.body.title, message: req.body.message, image: req.protocol + '://' + req.get('host') + '/' + req.file.filename };
-        postUser.findById(req.params.id)
+        if (req.body.employeeId.toString() === req.authorize.employeeId && req.get('Authorization') !== undefined && req.get('Authorization') !== 'Bearer null') {
+            let newData = { title: req.body.title, message: req.body.message, image: req.protocol + '://' + req.get('host') + '/' + req.file.filename, employeeId: req.body.employeeId.toString() };
+            postUser.findById(req.params.id)
 
-            .then((posts) => {
-                if (posts.image !== undefined) {
-                    imageFolder.unlink(process.cwd() + '/images/' + posts.image.slice(22), (err) => {
-                        if (err) {
-                            console.error(err, 'Removal error');
-                            res.status(500).json(err);
+                .then((posts) => {
+
+                    if (req.body.employeeId.toString() === posts.employeeId) {
+                        if (posts.image !== undefined) {
+                            imageFolder.unlink(process.cwd() + '/images/' + posts.image.slice(22), (err) => {
+                                if (err) {
+                                    console.error(err, 'Removal error');
+                                    res.status(500).json(err);
+                                }
+                            });
                         }
-                    });
-                }
-                postUser.findByIdAndUpdate(req.params.id, {
-                    title: newData.title,
-                    message: newData.message,
-                    image: newData.image,
-                    date: Date.now()
+                        postUser.findByIdAndUpdate(req.params.id, {
+                            title: newData.title,
+                            message: newData.message,
+                            image: newData.image,
+                            employeeId: newData.employeeId,
+                            date: Date.now()
+                        })
+
+                            .then(() => {
+                                res.status(201).json({ message: 'Successful update !' });
+                            })
+                            .catch((error) => {
+                                res.status(500).json(error);
+                            });
+
+                    }
+
+                    else {
+                        let error = new Error('Unauthorize modification !');
+                        res.status(403).json({ message: error.message });
+                    }
+
                 })
 
-                    .then(() => {
-                        res.status(201).json({ message: 'Successful update !' });
-                    })
-                    .catch((error) => {
-                        res.status(500).json(error);
-                    });
-            })
+                .catch((error) => {
+                    res.status(500).json(error);
+                });
 
-            .catch((error) => {
-                res.status(500).json(error);
-            });
+        }
+        else {
+            let error = new Error('Update error !');
+            res.status(500).json({ message: error.message });
+        }
+
     }
 
     else if (req.file === undefined) {
-        let newData = { title: req.body.title, message: req.body.message };
+        if (req.body.employeeId.toString() === req.authorize.employeeId && req.get('Authorization') !== undefined && req.get('Authorization') !== 'Bearer null') {
+            let newData = { title: req.body.title, message: req.body.message, employeeId: req.body.employeeId.toString() };
 
-        postUser.findById(req.params.id)
+            postUser.findById(req.params.id)
 
-            .then(() => {
+                .then((posts) => {
+                    if (req.body.employeeId.toString() === posts.employeeId) {
+                        postUser.findByIdAndUpdate(req.params.id, {
+                            title: newData.title,
+                            message: newData.message,
+                            employeeId: newData.employeeId,
+                            date: Date.now()
+                        })
 
-                postUser.findByIdAndUpdate(req.params.id, {
-                    title: newData.title,
-                    message: newData.message,
-                    date: Date.now()
+                            .then(() => {
+                                res.status(201).json({ message: 'Successful update !' });
+                            })
+                            .catch((error) => {
+                                res.status(500).json(error);
+                            });
+
+                    }
+                    else {
+                        let error = new Error('Unauthorize modification !');
+                        res.status(403).json({ message: error.message });
+                    }
+
                 })
 
-                    .then(() => {
-                        res.status(201).json({ message: 'Successful update !' });
-                    })
-                    .catch((error) => {
-                        res.status(500).json(error);
-                    });
-            })
+                .catch((error) => {
+                    res.status(500).json(error);
+                });
 
-            .catch((error) => {
-                res.status(500).json(error);
-            });
+        }
 
+        else {
+            let error = new Error('Update error !');
+            res.status(500).json({ message: error.message });
+        }
     }
 
 }
 
-exports.deletion = (req, res, nexr) => {
+exports.deletion = (req, res, next) => {
 
-    postUser.findByIdAndDelete(req.body.id)
+    postUser.findById(req.body.id)
+        .then((data) => {
+            if (req.body.id === data._id.toString() && req.body.employeeId.toString() === req.authorize.employeeId && req.body.employeeId.toString() === data.employeeId) {
 
-        .then(() => {
+                imageFolder.readdir('images', (err, files) => {
+                    if (err !== null) {
+                        console.error(err, 'Directory error');
+                        res.status(500).json(err);
+                    }
+                    else {
+                        if (data.image !== undefined) {
+                            imageFolder.unlink(process.cwd() + '/images/' + data.image.slice(22), (err) => {
+                                if (err) {
+                                    console.error(err, 'Removal error');
+                                    res.status(500).json(err);
+                                }
 
-            res.status(200).json({ message: 'Successful deletion !' });
+                                postUser.findByIdAndDelete(data._id)
+
+                                    .then(() => {
+
+                                        res.status(200).json({ message: 'Successful deletion !' });
+
+                                    })
+                                    .catch((error) => {
+                                        res.status(500).json({ message: error });
+
+                                    })
+                            });
+
+                        }
+
+                        else if (data.image === undefined) {
+
+                            postUser.findByIdAndDelete(data._id)
+
+                                .then(() => {
+
+                                    res.status(200).json({ message: 'Successful deletion !' });
+
+                                })
+                                .catch((error) => {
+                                    res.status(500).json({ message: error });
+
+                                })
+                        }
+                    }
+
+                });
+            }
+            else {
+
+                res.status(401).json({ message: 'Deletion not allowed !' })
+            }
+        })
+        .catch((error) => {
+            res.status(500).json(error);
+        })
+
+
+}
+exports.existingPost = (req, res, next) => {
+
+    postUser.findById(req.params.id)
+        .then((data) => {
+
+            if (req.params.id === data._id.toString() && req.get('Authorization') !== undefined && req.get('Authorization') !== 'Bearer null') {
+
+                res.status(201).json(data);
+            }
+            else {
+                res.status(500).json(error);
+            }
 
         })
         .catch((error) => {
-            res.status(500).json({ message: error });
-
-        })
-
-}
+            res.status(500).json(error);
+        });
+};
