@@ -10,16 +10,13 @@ const routing = createBrowserRouter([
   {
     path: '/intranet',
     element: <AuthPage />,
-    errorElement: <div>There is an error !</div>
   },
   {
     path: '/homepage',
-    errorElement: <div>There is an error !</div>,
     element: <Homepage />
   },
   {
     path: '/modifications/:id',
-    errorElement: <div>There is an error !</div>,
     element: <Modifications />
   }
 ])

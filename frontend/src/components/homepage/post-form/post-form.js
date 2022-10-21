@@ -44,9 +44,8 @@ const PostForm = (prop) => {
                 }
 
                 else if (postTitle !== '' && postMessage !== '' && prop.propId === 'animate') {
-                    const sessionToken = window.localStorage.getItem('employee-token');
-                    const employeeId = window.localStorage.getItem('employee-id');
-                    postService.postsPost(postTitle, postMessage, fileInputRef.current.files[0], sessionToken, employeeId)
+
+                    postService.postsPost(postTitle, postMessage, fileInputRef.current.files[0])
                         .then((value) => {
                             console.log(value.status, 'RESPONSE');
                             postCreation(0);

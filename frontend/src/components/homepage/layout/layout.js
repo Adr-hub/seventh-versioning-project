@@ -1,7 +1,7 @@
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import './layout.scss';
 import { useState, useRef } from 'react';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import HomepageHeader from '../header/homepageHeader';
 import Button from '../post-button/post-button';
 import Navbar from '../navbar/navbar';
@@ -20,7 +20,7 @@ const Homepage = () => {
     const [deletionActivation, getState] = useState(false);
     const [cancelation, getCancelButtonState] = useState();
     const emptyPageRef = useRef();
-    // let postDeletion = useNavigate();
+    let postDeletion = useNavigate();
     ReactModal.setAppElement('#root');
     return <><HelmetProvider>
         <Helmet>
@@ -45,8 +45,10 @@ const Homepage = () => {
                     postService.deletePosts(postId, sessionToken, employeeId)
                         .then((value) => {
                             console.log(value.status, 'RESPONSE');
-                            window.location.replace('/homepage');
-                            // postDeletion('/homepage');
+
+                            postDeletion(0);
+
+                            window.scrollTo(0, 0);
                         })
 
                         .catch((error) => {

@@ -33,13 +33,13 @@ const ResponsivePostForm = (prop) => {
             }
 
             else if (postTitle !== '' && postMessage !== '') {
-                const sessionToken = window.localStorage.getItem('employee-token');
-                const employeeId = window.localStorage.getItem('employee-id');
-                postService.postsPost(postTitle, postMessage, fileInputRef.current.files[0], sessionToken, employeeId)
+
+                postService.postsPost(postTitle, postMessage, fileInputRef.current.files[0])
                     .then((value) => {
                         console.log(value.status, 'RESPONSE');
-                        postCreation(0);
                         window.scrollTo(0, 0);
+                        postCreation(0);
+
                     })
 
                     .catch((error) => {

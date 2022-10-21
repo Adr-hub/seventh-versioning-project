@@ -2,10 +2,12 @@ import './layout.scss';
 import HomePageIcons from '../../homepage/icons/homepageIcons';
 import Footer from "../../shared components/footer/footer"
 import { useState, useRef, useEffect } from 'react';
-import { useLocation/*, useNavigate*/ } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import postService from '../../../services/postService';
 const Modifications = (prop) => {
-    // let postCreation = useNavigate();
+    let postCreation = useNavigate();
+    const [initialTitle, getInitialTitle] = useState('');
+    const [initialMessage, getInitialMessage] = useState('');
     const [postTitle, getPostTitle] = useState();
     const [postMessage, getPostMessage] = useState();
     const messageErrorRef = useRef();
@@ -15,8 +17,8 @@ const Modifications = (prop) => {
 
 
     useEffect(() => {
-        const sessionToken = window.localStorage.getItem('employee-token');
-        postService.getPost(id, sessionToken)
+
+        postService.getPost(id)
             .then((form) => {
                 console.log(form.status, 'DATA RETURNED');
 
@@ -24,8 +26,8 @@ const Modifications = (prop) => {
 
                     let title = form.data.title;
                     let message = form.data.message;
-                    getPostTitle(title);
-                    getPostMessage(message);
+                    getInitialTitle(title);
+                    getInitialMessage(message);
                 }
             })
             .catch((error) => {
@@ -34,40 +36,63 @@ const Modifications = (prop) => {
 
     }, [id]);
 
-    if (postTitle !== undefined && postMessage !== undefined) {
-        return (<><div className='responsiveModificationFormContainer'><p className='notification'>Modify your post !</p><form encType="multipart/form-data" onChange={(ev) => {
+    return (<><div className='responsiveModificationFormContainer'><p className='notification'>Modify your post !</p><form encType="multipart/form-data" onChange={(ev) => {
 
-            if (messageErrorRef.current !== undefined) {
-                messageErrorRef.current.textContent = '';
+        if (messageErrorRef.current !== undefined) {
+            messageErrorRef.current.textContent = '';
+        }
+    }}><label htmlFor="title"><HomePageIcons propId="title" />Title<br /><input type="text" id="title" name="title" value={postTitle !== undefined ? postTitle : initialTitle} onInput={(ev) => {
+        getPostTitle(ev.target.value);
+    }} /></label><br />
+
+        <label htmlFor="content"><HomePageIcons propId="text" />Content<br /><textarea id="content" name="message" minLength="12" maxLength="262" value={postMessage !== undefined ? postMessage : initialMessage} onInput={(ev) => {
+            getPostMessage(ev.target.value);
+        }}></textarea></label><br />
+
+        <label htmlFor="images"><HomePageIcons propId="images" />Image<br /><input type="file" id="images" name="image" ref={fileInputRef} /></label><br />
+
+        <div className='submitButtonContainer'><input type="submit" value="Update the Post !" className='postButton' onClick={(ev) => {
+
+            ev.preventDefault();
+
+            if (postTitle === undefined && postMessage === undefined && postTitle !== 'undefined' && postMessage !== 'undefined' && fileInputRef.current.files[0] === undefined) {
+                ev.preventDefault()
+                messageErrorRef.current.textContent = "You didn't update the post !";
             }
-        }}><label htmlFor="title"><HomePageIcons propId="title" />Title<br /><input type="text" id="title" name="title" value={postTitle} onInput={(ev) => {
-            getPostTitle(ev.target.value);
-        }} /></label><br />
 
-            <label htmlFor="content"><HomePageIcons propId="text" />Content<br /><textarea id="content" name="message" minLength="12" maxLength="262" value={postMessage} onInput={(ev) => {
-                getPostMessage(ev.target.value);
-            }}></textarea></label><br />
+            else if (postTitle !== undefined || postMessage !== undefined || fileInputRef.current.files[0] !== undefined) {
 
-            <label htmlFor="images"><HomePageIcons propId="images" />Image<br /><input type="file" id="images" name="image" ref={fileInputRef} /></label><br />
+                const titleValue = postTitle !== undefined ? postTitle : initialTitle;
+                const messageValue = postMessage !== undefined ? postMessage : initialMessage;
 
-            <div className='submitButtonContainer'><input type="submit" value="Create the Post !" className='postButton' onClick={(ev) => {
-                ev.preventDefault();
 
-                if (postMessage.length < 12 && postMessage.length !== 0 && postTitle.length !== 0) {
+                if (messageValue.length < 12 && messageValue.length !== 0 && titleValue.length !== 0) {
+                    ev.preventDefault();
                     messageErrorRef.current.textContent = "Your post is too short !";
                 }
 
-                else if (postTitle !== '' && postMessage !== '') {
-                    let id = locate.pathname.split('modifications/')[1];
-                    const sessionToken = window.localStorage.getItem('employee-token');
-                    const employeeId = window.localStorage.getItem('employee-id');
-                    postService.updateResponsivePosts(postTitle, postMessage, fileInputRef.current.files[0], id, sessionToken, employeeId)
+                else if (messageValue.length === 0 && titleValue.length === 0 && fileInputRef.current.files[0] === undefined) {
+                    ev.preventDefault();
+                    messageErrorRef.current.textContent = "You didn't fill in the form !";
+                }
+
+                else if (titleValue.length === 0) {
+                    ev.preventDefault();
+                    messageErrorRef.current.textContent = "Your post has no title !";
+                }
+
+                else if (messageValue.length === 0) {
+                    ev.preventDefault();
+                    messageErrorRef.current.textContent = "Your post has no content !";
+                }
+
+
+                else {
+                    postService.updateResponsivePosts(titleValue, messageValue, fileInputRef.current.files[0], id)
                         .then((value) => {
                             console.log(value.status, 'RESPONSE');
                             ev.preventDefault();
-
-                            window.location.replace('/homepage');
-                            // postCreation('/homepage');
+                            postCreation('/homepage');
                         }
 
                         )
@@ -81,15 +106,15 @@ const Modifications = (prop) => {
                             messageErrorRef.current.textContent = 'Error ! ' + error.message + ' !';
 
                         })
-                }
 
-                else {
-                    messageErrorRef.current.textContent = "You didn't fill in the form !";
                 }
-            }} /></div>
-        </form>
-            <p className="errors" ref={messageErrorRef}></p>
-        </div><Footer modifications={true} /></>);
-    };
-}
+            }
+        }
+
+        } /></div>
+    </form>
+        <p className="errors" ref={messageErrorRef}></p>
+    </div><Footer modifications={true} /></>);
+};
+
 export default Modifications;

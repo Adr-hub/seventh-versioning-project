@@ -15,7 +15,7 @@ const SignUp = (prop) => {
     const navigation = useNavigate();
 
 
-    if (prop.pageSelection === 'signUp' || prop.pageSelection === '') {
+    if (prop.pageSelection === 'signUp') {
 
         return (<section className="formContainer"><form method='POST' ref={formRef}>
             <label htmlFor="user" className='userLabel'><Icons propId="userProp" /> Username<input type="text" id="user" name="email" required onInput={

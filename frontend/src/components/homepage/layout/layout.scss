@@ -35,7 +35,6 @@
     @media screen and (max-width: 768px) and (orientation: portrait) {
         height: auto;
     }
-
 }
 
 .firstContainer {
@@ -55,6 +54,7 @@
 }
 
 .secondContainer {
+    position: relative;
     margin-top: 14px;
     height: auto;
     margin-bottom: 11%;
@@ -62,7 +62,6 @@
     height: auto;
     display: flex;
     justify-content: space-between;
-    z-index: 1;
 
     @media screen and (max-width:992px) {
         flex-direction: column;

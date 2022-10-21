@@ -14,8 +14,7 @@ const Post = (prop) => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        const sessionToken = window.localStorage.getItem('employee-token');
-        postService.getPosts(sessionToken)
+        postService.getPosts()
             .then((data) => {
                 console.log(data.status, 'RESPONSE');
 
@@ -23,48 +22,59 @@ const Post = (prop) => {
                 let posts = dataArray.map((data) => {
                     return (<div className="postContainer" data-id={data._id} key={data._id}><div className="postTitle">{data.title}</div>
                         <div className="postContent">
-                            <div className="postText"><p>{data.message}</p></div><div className="postImage" ><img alt="" src={data.image !== undefined ? data.image : testImage} />
+                            <div className="postText"><p>{data.message}</p></div><div className="postImage" ><img alt={data.image !== undefined ? "Le post intitulé : '" + data.title + "' joint ce contenu additionnel." : "Groupomania"} src={data.image !== undefined ? data.image : testImage} />
                             </div>
                         </div>
-                        <div className="postButtonsContainer"><button className='modifications' onClick={(ev) => {
+                        <div className="postButtonsContainer">
 
-                            if (ev.detail >= 1 && form !== 'modify' && window.innerWidth > 992 && form !== 'animate') {
-                                animation('modify');
-                                getPostId(ev.target.closest('.postContainer').getAttribute('data-id'));
-                                ev.target.textContent = 'Modifying';
+                            {data.employeeId === window.localStorage.getItem('employee-id') &&
+                                <button className='modifications' onClick={(ev) => {
+
+                                    if (ev.detail >= 1 && form !== 'modify' && window.innerWidth > 992 && form !== 'animate') {
+                                        animation('modify');
+                                        getPostId(ev.target.closest('.postContainer').getAttribute('data-id'));
+                                        ev.target.textContent = 'Modifying';
+                                    }
+
+                                    if (ev.detail >= 1 && form !== 'update' && window.innerWidth > 992 && form !== 'animate') {
+                                        animation('update');
+                                        getPutId(ev.target.closest('.postContainer').getAttribute('data-id'));
+                                        ev.target.textContent = 'Modifying';
+                                    }
+                                    if (ev.detail >= 1 && form !== 'modify' && form === 'animate') {
+                                        ev.preventDefault();
+                                    }
+                                    if (ev.detail >= 1 && form === 'modify' && ev.target.textContent === 'Modifying') {
+                                        ev.target.textContent = 'Modify';
+                                        animation('unanimate');
+                                    }
+
+                                    if (ev.detail >= 1 && form === 'update' && ev.target.textContent === 'Modifying') {
+                                        ev.target.textContent = 'Modify';
+                                        animation('unanimate');
+                                        getPutId('modifying');
+                                    }
+                                    if (ev.detail >= 1 && window.innerWidth <= 992 && ev.target.textContent === 'Modify') {
+                                        animation('removed');
+                                        getPostId(ev.target.closest('.postContainer').getAttribute('data-id'));
+                                    }
+                                }}>Modify</button>
+
+                            }
+                            {data.employeeId === window.localStorage.getItem('employee-id') &&
+                                <button className="delete" onClick={(ev) => {
+
+                                    let deletionActivation = prop.deleteState;
+                                    deletionActivation(true);
+                                    if (ev.detail >= 1) {
+                                        getPostId(ev.target.closest('.postContainer').getAttribute('data-id'));
+                                    }
+
+                                }}>Delete</button>
+
                             }
 
-                            if (ev.detail >= 1 && form !== 'update' && window.innerWidth > 992 && form !== 'animate') {
-                                animation('update');
-                                getPutId(ev.target.closest('.postContainer').getAttribute('data-id'));
-                                ev.target.textContent = 'Modifying';
-                            }
-                            if (ev.detail >= 1 && form !== 'modify' && form === 'animate') {
-                                ev.preventDefault();
-                            }
-                            if (ev.detail >= 1 && form === 'modify' && ev.target.textContent === 'Modifying') {
-                                ev.target.textContent = 'Modify';
-                                animation('unanimate');
-                            }
-
-                            if (ev.detail >= 1 && form === 'update' && ev.target.textContent === 'Modifying') {
-                                ev.target.textContent = 'Modify';
-                                animation('unanimate');
-                                getPutId('modifying');
-                            }
-                            if (ev.detail >= 1 && window.innerWidth <= 992 && ev.target.textContent === 'Modify') {
-                                animation('removed');
-                                getPostId(ev.target.closest('.postContainer').getAttribute('data-id'));
-                            }
-                        }}>Modify</button><button className="delete" onClick={(ev) => {
-
-                            let deletionActivation = prop.deleteState;
-                            deletionActivation(true);
-                            if (ev.detail >= 1) {
-                                getPostId(ev.target.closest('.postContainer').getAttribute('data-id'));
-                            }
-
-                        }}>Delete</button><button className="likes">Like</button></div>
+                            <button className="likes">Like</button></div>
                         <div className="postInformations"><span className="postDate">{Intl.DateTimeFormat('fr-FR', { dateStyle: 'full', timeStyle: 'short' }).format(data.date)}</span></div>
                     </div >)
                 })
@@ -75,8 +85,11 @@ const Post = (prop) => {
             }
             )
             .catch((error) => {
-                navigate('/error');
+
                 console.error(error);
+                window.localStorage.clear();
+                navigate('/intranet', { replace: true });
+
             })
 
     }, [animation, form, navigate, postRef, getPostId, postId, prop.deleteState, getPutId]);

@@ -15,7 +15,7 @@ const Login = (prop) => {
     const errorRef = useRef();
     const navigation = useNavigate();
 
-    if (prop.pageSelection === 'login') {
+    if (prop.pageSelection === 'login' || prop.pageSelection === '') {
 
         return (<section className="formContainer"><form method='POST' ref={formRef}>
             <label htmlFor="user" className='userLabel'><Icons propId="userProp" /> Username<input type="text" id="user" name="email" required onChange={

@@ -1,11 +1,18 @@
 import axiosRequests from 'axios';
 
-const getPosts = (authorization) => {
-    let homepagePosts = axiosRequests('http://localhost:4200/homepage/all', { headers: { 'Authorization': 'Bearer ' + authorization } });
+const getPosts = () => {
+
+    const sessionToken = window.localStorage.getItem('employee-token');
+
+    let homepagePosts = axiosRequests('http://localhost:4200/homepage/all', { headers: { 'Authorization': 'Bearer ' + sessionToken } });
     return homepagePosts;
 }
 
-const postsPost = (title, message, image, authorization, employeeId) => {
+const postsPost = (title, message, image) => {
+
+    const sessionToken = window.localStorage.getItem('employee-token');
+    const employeeId = window.localStorage.getItem('employee-id');
+
     let formData = new FormData();
     formData.append('title', title);
     formData.append('message', message);
@@ -17,13 +24,17 @@ const postsPost = (title, message, image, authorization, employeeId) => {
             url: 'http://localhost:4200/homepage/posts',
 
             data: formData,
-            headers: { 'Authorization': 'Bearer ' + authorization }
+            headers: { 'Authorization': 'Bearer ' + sessionToken }
         })
         return posts;
     }
 }
 
-const updatePosts = (title, message, image, postId, authorization, employeeId) => {
+const updatePosts = (title, message, image, postId) => {
+
+    const sessionToken = window.localStorage.getItem('employee-token');
+    const employeeId = window.localStorage.getItem('employee-id');
+
     let newData = new FormData();
     newData.append('title', title);
     newData.append('message', message);
@@ -36,13 +47,17 @@ const updatePosts = (title, message, image, postId, authorization, employeeId) =
             url: 'http://localhost:4200/homepage/update',
 
             data: newData,
-            headers: { 'Authorization': 'Bearer ' + authorization }
+            headers: { 'Authorization': 'Bearer ' + sessionToken }
         })
         return put;
     }
 }
 
-const updateResponsivePosts = (title, message, image, id, authorization, employeeId) => {
+const updateResponsivePosts = (title, message, image, id) => {
+
+    const sessionToken = window.localStorage.getItem('employee-token');
+    const employeeId = window.localStorage.getItem('employee-id');
+
     let newData = new FormData();
     newData.append('title', title);
     newData.append('message', message);
@@ -55,13 +70,17 @@ const updateResponsivePosts = (title, message, image, id, authorization, employe
             url: 'http://localhost:4200/homepage/update/' + id,
 
             data: newData,
-            headers: { 'Authorization': 'Bearer ' + authorization }
+            headers: { 'Authorization': 'Bearer ' + sessionToken }
         })
         return put;
     }
 }
 
-const deletePosts = (id, authorization, employeeId) => {
+const deletePosts = (id) => {
+
+    const sessionToken = window.localStorage.getItem('employee-token');
+    const employeeId = window.localStorage.getItem('employee-id');
+
     let deletes = axiosRequests({
         method: 'delete',
         url: 'http://localhost:4200/homepage/delete',
@@ -69,14 +88,17 @@ const deletePosts = (id, authorization, employeeId) => {
             id: id,
             employeeId: employeeId
         },
-        headers: { 'Authorization': 'Bearer ' + authorization }
+        headers: { 'Authorization': 'Bearer ' + sessionToken }
     })
     return deletes;
 }
 
-const getPost = (id, authorization) => {
+const getPost = (id) => {
+
+    const sessionToken = window.localStorage.getItem('employee-token');
+
     let post = axiosRequests('http://localhost:4200/homepage/post/' + id, {
-        headers: { 'Authorization': 'Bearer ' + authorization }
+        headers: { 'Authorization': 'Bearer ' + sessionToken }
     })
     return post;
 }

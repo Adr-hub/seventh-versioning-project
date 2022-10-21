@@ -70,6 +70,7 @@
         position: fixed;
         right: 0.85%;
         top: 90px;
+        z-index: 1;
         margin-top: 0;
         text-align: center;
         padding-left: 36px;
@@ -83,16 +84,6 @@
 
     @media screen and (max-width: 992px) {
         display: none;
-    }
-}
-
-@keyframes formContainer {
-    0% {
-        width: 15%
-    }
-
-    100% {
-        width: 55%;
     }
 }
 

@@ -18,13 +18,13 @@ body {
 
 .ReactModal__Overlay {
     height: 750px;
+    z-index: 2;
 
     @media screen and (max-width:992px) and (orientation: portrait) {
         height: auto;
     }
 
     @media screen and (max-width:768px) and (orientation: landscape) {
-
-        height: 350px;
+        height: 550px;
     }
 }
