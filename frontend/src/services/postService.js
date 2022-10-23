@@ -103,6 +103,25 @@ const getPost = (id) => {
     return post;
 }
 
-const postService = { getPosts, postsPost, updatePosts, updateResponsivePosts, deletePosts, getPost };
+const postLikes = (id) => {
+
+    const sessionToken = window.localStorage.getItem('employee-token');
+    const employeeId = window.localStorage.getItem('employee-id');
+
+    let likes = axiosRequests({
+        method: 'post',
+        url: 'http://localhost:4200/homepage/likes',
+
+        data: {
+            postId: id,
+            employeeId: employeeId
+        },
+        headers: { 'Authorization': 'Bearer ' + sessionToken }
+    })
+    return likes;
+}
+
+
+const postService = { getPosts, postsPost, updatePosts, updateResponsivePosts, deletePosts, getPost, postLikes };
 
 export default postService;

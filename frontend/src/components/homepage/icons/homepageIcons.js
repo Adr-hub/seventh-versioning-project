@@ -1,5 +1,9 @@
 import './homepageIcons.scss';
 const HomePageIcons = (props) => {
+    let heart = props.heart;
+    if (heart) {
+        return (<span className="likeContainer"><i className="far fa-heart"></i></span >);
+    }
 
     if (props.propId === "title") {
         return (<span className="iconContainers"><i className="fas fa-smile-beam"></i></span>);
@@ -15,6 +19,10 @@ const HomePageIcons = (props) => {
 
     if (props.propId === "images") {
         return (<span className="iconContainers"><i className="fas fa-images"></i></span>);
+    }
+
+    if (props.propId === "likes") {
+        return (<span className="likeContainer"><i className="far fa-heart"></i></span >);
     }
 }
 

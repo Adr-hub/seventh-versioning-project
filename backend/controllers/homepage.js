@@ -22,7 +22,7 @@ exports.homepagePosts = (req, res) => {
 exports.postSubmission = (req, res) => {
     if (req.body.employeeId.toString() === req.authorize.employeeId && req.get('Authorization') !== undefined && req.get('Authorization') !== 'Bearer null') {
         if (req.file !== undefined) {
-            let data = { title: req.body.title, message: req.body.message, image: req.protocol + '://' + req.get('host') + '/' + req.file.filename, employeeId: req.body.employeeId.toString(), date: Date.now() };
+            let data = { title: req.body.title, message: req.body.message, image: req.protocol + '://' + req.get('host') + '/' + req.file.filename, employeeId: req.body.employeeId.toString(), likes: [], date: Date.now() };
 
             new postUser(data).save()
 
@@ -34,7 +34,7 @@ exports.postSubmission = (req, res) => {
                 });
         }
         else if (req.file === undefined) {
-            let data = { title: req.body.title, message: req.body.message, employeeId: req.body.employeeId.toString(), date: Date.now() };
+            let data = { title: req.body.title, message: req.body.message, employeeId: req.body.employeeId.toString(), likes: [], date: Date.now() };
             new postUser(data).save()
 
                 .then(() => {
@@ -77,6 +77,7 @@ exports.updateData = (req, res, next) => {
                             message: newData.message,
                             image: newData.image,
                             employeeId: newData.employeeId,
+                            likes: posts.likes,
                             date: Date.now()
                         })
 
@@ -107,7 +108,7 @@ exports.updateData = (req, res, next) => {
 
     else if (req.file === undefined) {
         if (req.body.employeeId.toString() === req.authorize.employeeId && req.get('Authorization') !== undefined && req.get('Authorization') !== 'Bearer null') {
-            let newData = { title: req.body.title, message: req.body.message, employeeId: req.body.employeeId.toString() };
+            let newData = { title: req.body.title, message: req.body.message, employeeId: req.body.employeeId.toString(), likes: [] };
 
             postUser.findById(req.body.postId)
                 .then((posts) => {
@@ -117,7 +118,7 @@ exports.updateData = (req, res, next) => {
                             message: newData.message,
                             employeeId: newData.employeeId,
                             image: undefined,
-
+                            likes: posts.likes,
                             date: Date.now()
 
                         })
@@ -152,7 +153,7 @@ exports.updateResponsiveData = (req, res, next) => {
 
     if (req.file !== undefined) {
         if (req.body.employeeId.toString() === req.authorize.employeeId && req.get('Authorization') !== undefined && req.get('Authorization') !== 'Bearer null') {
-            let newData = { title: req.body.title, message: req.body.message, image: req.protocol + '://' + req.get('host') + '/' + req.file.filename, employeeId: req.body.employeeId.toString() };
+            let newData = { title: req.body.title, message: req.body.message, image: req.protocol + '://' + req.get('host') + '/' + req.file.filename, employeeId: req.body.employeeId.toString(), likes: [] };
             postUser.findById(req.params.id)
 
                 .then((posts) => {
@@ -171,6 +172,7 @@ exports.updateResponsiveData = (req, res, next) => {
                             message: newData.message,
                             image: newData.image,
                             employeeId: newData.employeeId,
+                            likes: posts.likes,
                             date: Date.now()
                         })
 
@@ -204,7 +206,7 @@ exports.updateResponsiveData = (req, res, next) => {
 
     else if (req.file === undefined) {
         if (req.body.employeeId.toString() === req.authorize.employeeId && req.get('Authorization') !== undefined && req.get('Authorization') !== 'Bearer null') {
-            let newData = { title: req.body.title, message: req.body.message, employeeId: req.body.employeeId.toString() };
+            let newData = { title: req.body.title, message: req.body.message, employeeId: req.body.employeeId.toString(), likes: [] };
 
             postUser.findById(req.params.id)
 
@@ -214,6 +216,7 @@ exports.updateResponsiveData = (req, res, next) => {
                             title: newData.title,
                             message: newData.message,
                             employeeId: newData.employeeId,
+                            likes: posts.likes,
                             date: Date.now()
                         })
 
@@ -300,7 +303,7 @@ exports.deletion = (req, res, next) => {
             }
             else {
 
-                res.status(401).json({ message: 'Deletion not allowed !' })
+                res.status(403).json({ message: 'Deletion not allowed !' })
             }
         })
         .catch((error) => {
@@ -327,3 +330,48 @@ exports.existingPost = (req, res, next) => {
             res.status(500).json(error);
         });
 };
+
+exports.likePosts = (req, res, next) => {
+
+    if (req.body.employeeId.toString() === req.authorize.employeeId && req.get('Authorization') !== undefined && req.get('Authorization') !== 'Bearer null') {
+
+        postUser.findById(req.body.postId)
+            .then((data) => {
+
+                if (!data.likes.includes(req.authorize.employeeId)) {
+
+                    postUser.updateOne({ _id: data._id }, { $push: { likes: req.authorize.employeeId } }).then(() => {
+
+                        res.status(201).json({ likeCount: data.likes.length + 1, message: 'Successful post !' });
+                    })
+                        .catch((error) => {
+                            res.status(500).json(error);
+                        })
+                }
+
+                else {
+
+                    let pushedEmployee = data.likes.find(element => element === req.authorize.employeeId);
+
+                    if (pushedEmployee === req.authorize.employeeId) {
+
+                        postUser.updateOne({ _id: data._id }, { $pull: { likes: pushedEmployee } })
+                            .catch((error) => {
+                                res.status(500).json(error);
+                            })
+                        res.status(200).json({ likeCount: data.likes.length - 1, message: 'Successful removal !' });
+                    }
+                }
+
+            })
+            .catch((error) => {
+                res.status(500).json(error);
+            });
+
+    }
+    else {
+
+        res.status(403).json({ message: 'Action not allowed !' })
+    }
+
+}

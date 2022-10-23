@@ -74,7 +74,26 @@ const Post = (prop) => {
 
                             }
 
-                            <button className="likes">Like</button></div>
+                            <button className="likes" onClick={(ev) => {
+
+                                if (ev.detail >= 1) {
+
+                                    let id = ev.target.closest('.postContainer').getAttribute('data-id');
+
+                                    postService.postLikes(id)
+
+                                        .then((res) => {
+                                            console.log(res.status, 'Clicked like button !')
+                                            ev.target.textContent = res.data.likeCount !== undefined || res.data.likeCount !== 0 ? res.data.likeCount + ' 🤍' : 0 + ' 🤍';
+
+                                        })
+                                        .catch((error) => {
+                                            console.error(error);
+                                        })
+                                }
+
+
+                            }}>{data.likes.length !== undefined ? data.likes.length : ''} 🤍</button></div>
                         <div className="postInformations"><span className="postDate">{Intl.DateTimeFormat('fr-FR', { dateStyle: 'full', timeStyle: 'short' }).format(data.date)}</span></div>
                     </div >)
                 })

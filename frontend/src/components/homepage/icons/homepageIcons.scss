@@ -19,3 +19,17 @@
         margin-left: 1.4%;
     }
 }
+
+.likeContainer {
+    display: inline;
+    width: 30px;
+    height: 30px;
+    margin-bottom: 1%;
+    margin-right: 0.08%;
+    padding-left: 4px;
+
+    i {
+
+        transform: scale(1.10);
+    }
+}
