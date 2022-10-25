@@ -34,6 +34,7 @@ const updatePosts = (title, message, image, postId) => {
 
     const sessionToken = window.localStorage.getItem('employee-token');
     const employeeId = window.localStorage.getItem('employee-id');
+    const defaultRole = window.localStorage.getItem('admin') !== null ? window.localStorage.getItem('admin') : '0';
 
     let newData = new FormData();
     newData.append('title', title);
@@ -41,6 +42,8 @@ const updatePosts = (title, message, image, postId) => {
     newData.append('image', image);
     newData.append('postId', postId);
     newData.append('employeeId', employeeId);
+    newData.append('defaultRole', defaultRole);
+
     if (newData.get('image') !== null || newData.get('image') === null) {
         let put = axiosRequests({
             method: 'put',
@@ -57,13 +60,14 @@ const updateResponsivePosts = (title, message, image, id) => {
 
     const sessionToken = window.localStorage.getItem('employee-token');
     const employeeId = window.localStorage.getItem('employee-id');
+    const defaultRole = window.localStorage.getItem('admin') !== null ? window.localStorage.getItem('admin') : '0';
 
     let newData = new FormData();
     newData.append('title', title);
     newData.append('message', message);
     newData.append('image', image);
     newData.append('employeeId', employeeId);
-
+    newData.append('defaultRole', defaultRole);
     if (newData.get('image') !== null || newData.get('image') === null) {
         let put = axiosRequests({
             method: 'put',
@@ -80,13 +84,15 @@ const deletePosts = (id) => {
 
     const sessionToken = window.localStorage.getItem('employee-token');
     const employeeId = window.localStorage.getItem('employee-id');
+    const defaultRole = window.localStorage.getItem('admin') !== null ? window.localStorage.getItem('admin') : '0';
 
     let deletes = axiosRequests({
         method: 'delete',
         url: 'http://localhost:4200/homepage/delete',
         data: {
             id: id,
-            employeeId: employeeId
+            employeeId: employeeId,
+            defaultRole: defaultRole
         },
         headers: { 'Authorization': 'Bearer ' + sessionToken }
     })

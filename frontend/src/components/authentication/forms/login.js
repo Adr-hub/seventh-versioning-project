@@ -43,6 +43,10 @@ const Login = (prop) => {
                             window.localStorage.setItem('employee-id', res.data.employeeId);
                             window.localStorage.setItem('employee-token', res.data.token);
 
+                            if (res.data.defaultRole === 1) {
+                                window.localStorage.setItem('admin', res.data.defaultRole);
+                            }
+
                             navigation('/homepage');
 
                         })

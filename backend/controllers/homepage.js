@@ -1,5 +1,6 @@
 const postUser = require('../models/postUser');
 const imageFolder = require('fs');
+const user = require('../models/user');
 
 exports.homepagePosts = (req, res) => {
     if (req.get('Authorization') !== undefined && req.get('Authorization') !== 'Bearer null')
@@ -9,7 +10,6 @@ exports.homepagePosts = (req, res) => {
             .catch((error) => {
                 res.status(500).json(error);
             });
-
     else {
         let error = new Error('Unauthorize authentication !');
         res.status(403).json({ message: error.message });
@@ -22,7 +22,7 @@ exports.homepagePosts = (req, res) => {
 exports.postSubmission = (req, res) => {
     if (req.body.employeeId.toString() === req.authorize.employeeId && req.get('Authorization') !== undefined && req.get('Authorization') !== 'Bearer null') {
         if (req.file !== undefined) {
-            let data = { title: req.body.title, message: req.body.message, image: req.protocol + '://' + req.get('host') + '/' + req.file.filename, employeeId: req.body.employeeId.toString(), likes: [], date: Date.now() };
+            let data = { title: req.body.title, message: req.body.message, image: req.protocol + '://' + req.get('host') + '/' + req.file.filename, employeeId: req.body.employeeId.toString(), date: Date.now() };
 
             new postUser(data).save()
 
@@ -34,7 +34,7 @@ exports.postSubmission = (req, res) => {
                 });
         }
         else if (req.file === undefined) {
-            let data = { title: req.body.title, message: req.body.message, employeeId: req.body.employeeId.toString(), likes: [], date: Date.now() };
+            let data = { title: req.body.title, message: req.body.message, employeeId: req.body.employeeId.toString(), date: Date.now() };
             new postUser(data).save()
 
                 .then(() => {
@@ -54,13 +54,13 @@ exports.postSubmission = (req, res) => {
 exports.updateData = (req, res, next) => {
 
     if (req.file !== undefined) {
-        if (req.body.employeeId.toString() === req.authorize.employeeId && req.get('Authorization') !== undefined && req.get('Authorization') !== 'Bearer null') {
+        if ((req.body.employeeId.toString() === req.authorize.employeeId && req.get('Authorization') !== undefined && req.get('Authorization') !== 'Bearer null') || req.body.defaultRole === '1') {
             let newData = { title: req.body.title, message: req.body.message, image: req.protocol + '://' + req.get('host') + '/' + req.file.filename, employeeId: req.body.employeeId.toString() };
 
             postUser.findById(req.body.postId)
 
                 .then((posts) => {
-                    if (req.body.employeeId.toString() === posts.employeeId) {
+                    if ((req.body.employeeId.toString() === posts.employeeId) || req.body.defaultRole === '1') {
 
                         if (posts.image !== undefined) {
                             imageFolder.unlink(process.cwd() + '/images/' + posts.image.slice(22), (err) => {
@@ -107,12 +107,12 @@ exports.updateData = (req, res, next) => {
     }
 
     else if (req.file === undefined) {
-        if (req.body.employeeId.toString() === req.authorize.employeeId && req.get('Authorization') !== undefined && req.get('Authorization') !== 'Bearer null') {
-            let newData = { title: req.body.title, message: req.body.message, employeeId: req.body.employeeId.toString(), likes: [] };
+        if ((req.body.employeeId.toString() === req.authorize.employeeId && req.get('Authorization') !== undefined && req.get('Authorization') !== 'Bearer null') || req.body.defaultRole === '1') {
+            let newData = { title: req.body.title, message: req.body.message, employeeId: req.body.employeeId.toString() };
 
             postUser.findById(req.body.postId)
                 .then((posts) => {
-                    if (req.body.employeeId.toString() === posts.employeeId) {
+                    if ((req.body.employeeId.toString() === posts.employeeId) || req.body.defaultRole === '1') {
                         postUser.findByIdAndUpdate(req.body.postId, {
                             title: newData.title,
                             message: newData.message,
@@ -152,13 +152,13 @@ exports.updateData = (req, res, next) => {
 exports.updateResponsiveData = (req, res, next) => {
 
     if (req.file !== undefined) {
-        if (req.body.employeeId.toString() === req.authorize.employeeId && req.get('Authorization') !== undefined && req.get('Authorization') !== 'Bearer null') {
-            let newData = { title: req.body.title, message: req.body.message, image: req.protocol + '://' + req.get('host') + '/' + req.file.filename, employeeId: req.body.employeeId.toString(), likes: [] };
+        if ((req.body.employeeId.toString() === req.authorize.employeeId && req.get('Authorization') !== undefined && req.get('Authorization') !== 'Bearer null') || req.body.defaultRole === '1') {
+            let newData = { title: req.body.title, message: req.body.message, image: req.protocol + '://' + req.get('host') + '/' + req.file.filename, employeeId: req.body.employeeId.toString() };
             postUser.findById(req.params.id)
 
                 .then((posts) => {
 
-                    if (req.body.employeeId.toString() === posts.employeeId) {
+                    if ((req.body.employeeId.toString() === posts.employeeId) || req.body.defaultRole === '1') {
                         if (posts.image !== undefined) {
                             imageFolder.unlink(process.cwd() + '/images/' + posts.image.slice(22), (err) => {
                                 if (err) {
@@ -205,13 +205,13 @@ exports.updateResponsiveData = (req, res, next) => {
     }
 
     else if (req.file === undefined) {
-        if (req.body.employeeId.toString() === req.authorize.employeeId && req.get('Authorization') !== undefined && req.get('Authorization') !== 'Bearer null') {
-            let newData = { title: req.body.title, message: req.body.message, employeeId: req.body.employeeId.toString(), likes: [] };
+        if ((req.body.employeeId.toString() === req.authorize.employeeId && req.get('Authorization') !== undefined && req.get('Authorization') !== 'Bearer null') || req.body.defaultRole === '1') {
+            let newData = { title: req.body.title, message: req.body.message, employeeId: req.body.employeeId.toString() };
 
             postUser.findById(req.params.id)
 
                 .then((posts) => {
-                    if (req.body.employeeId.toString() === posts.employeeId) {
+                    if ((req.body.employeeId.toString() === posts.employeeId) || req.body.defaultRole === '1') {
                         postUser.findByIdAndUpdate(req.params.id, {
                             title: newData.title,
                             message: newData.message,
@@ -253,7 +253,7 @@ exports.deletion = (req, res, next) => {
 
     postUser.findById(req.body.id)
         .then((data) => {
-            if (req.body.id === data._id.toString() && req.body.employeeId.toString() === req.authorize.employeeId && req.body.employeeId.toString() === data.employeeId) {
+            if ((req.body.id === data._id.toString() && req.body.employeeId.toString() === req.authorize.employeeId && req.body.employeeId.toString() === data.employeeId) || req.body.defaultRole === '1') {
 
                 imageFolder.readdir('images', (err, files) => {
                     if (err !== null) {

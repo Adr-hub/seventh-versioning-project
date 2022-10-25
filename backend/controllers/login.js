@@ -19,7 +19,7 @@ exports.login = (req, res) => {
                     exports.secret = secret;
 
                     let token = tokens.sign({ employeeId: String(registered._id) }, secret, { expiresIn: '3h' });
-                    res.status(201).json({ employeeId: registered._id, token: token, message: 'Logged in !' });
+                    res.status(201).json({ employeeId: registered._id, token: token, message: 'Logged in !', defaultRole: registered.defaultRole });
                 }
 
                 else {

@@ -17,7 +17,6 @@ const Post = (prop) => {
         postService.getPosts()
             .then((data) => {
                 console.log(data.status, 'RESPONSE');
-
                 const dataArray = data.data;
                 let posts = dataArray.map((data) => {
                     return (<div className="postContainer" data-id={data._id} key={data._id}><div className="postTitle">{data.title}</div>
@@ -27,7 +26,7 @@ const Post = (prop) => {
                         </div>
                         <div className="postButtonsContainer">
 
-                            {data.employeeId === window.localStorage.getItem('employee-id') &&
+                            {data.employeeId === window.localStorage.getItem('employee-id') || window.localStorage.getItem('admin') === '1' ?
                                 <button className='modifications' onClick={(ev) => {
 
                                     if (ev.detail >= 1 && form !== 'modify' && window.innerWidth > 992 && form !== 'animate') {
@@ -60,8 +59,8 @@ const Post = (prop) => {
                                     }
                                 }}>Modify</button>
 
-                            }
-                            {data.employeeId === window.localStorage.getItem('employee-id') &&
+                                : undefined}
+                            {data.employeeId === window.localStorage.getItem('employee-id') || window.localStorage.getItem('admin') === '1' ?
                                 <button className="delete" onClick={(ev) => {
 
                                     let deletionActivation = prop.deleteState;
@@ -72,11 +71,11 @@ const Post = (prop) => {
 
                                 }}>Delete</button>
 
-                            }
+                                : undefined}
 
                             <button className="likes" onClick={(ev) => {
 
-                                if (ev.detail >= 1) {
+                                if (ev.detail >= 1 && window.localStorage.getItem('admin') === null) {
 
                                     let id = ev.target.closest('.postContainer').getAttribute('data-id');
 
