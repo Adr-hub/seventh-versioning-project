@@ -1,4 +1,4 @@
-const registeredUser = require('../models/user.js');
+const registeredUser = require('../models/userSchema.js');
 const bcrypt = require('bcrypt');
 const randomKey = require('crypto');
 const tokens = require('jsonwebtoken');

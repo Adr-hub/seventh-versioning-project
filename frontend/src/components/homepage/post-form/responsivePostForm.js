@@ -1,4 +1,4 @@
-import HomePageIcons from '../icons/homepageIcons';
+import HomePageIcons from '../../shared components/icons/icons';
 import './responsivePostForm.scss';
 import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';

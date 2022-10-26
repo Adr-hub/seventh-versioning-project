@@ -1,5 +1,5 @@
 import './layout.scss';
-import HomePageIcons from '../../homepage/icons/homepageIcons';
+import HomePageIcons from '../../shared components/icons/icons';
 import Footer from "../../shared components/footer/footer"
 import { useState, useRef, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';

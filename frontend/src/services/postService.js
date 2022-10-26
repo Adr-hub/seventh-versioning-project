@@ -4,8 +4,8 @@ const getPosts = () => {
 
     const sessionToken = window.localStorage.getItem('employee-token');
 
-    let homepagePosts = axiosRequests('http://localhost:4200/homepage/all', { headers: { 'Authorization': 'Bearer ' + sessionToken } });
-    return homepagePosts;
+    let getAllPosts = axiosRequests('http://localhost:4200/posts/all', { headers: { 'Authorization': 'Bearer ' + sessionToken } });
+    return getAllPosts;
 }
 
 const postsPost = (title, message, image) => {
@@ -21,7 +21,7 @@ const postsPost = (title, message, image) => {
     if (formData.get('image') !== null || formData.get('image') === null) {
         let posts = axiosRequests({
             method: 'post',
-            url: 'http://localhost:4200/homepage/posts',
+            url: 'http://localhost:4200/posts/new-posts',
 
             data: formData,
             headers: { 'Authorization': 'Bearer ' + sessionToken }
@@ -47,7 +47,7 @@ const updatePosts = (title, message, image, postId) => {
     if (newData.get('image') !== null || newData.get('image') === null) {
         let put = axiosRequests({
             method: 'put',
-            url: 'http://localhost:4200/homepage/update',
+            url: 'http://localhost:4200/posts/update',
 
             data: newData,
             headers: { 'Authorization': 'Bearer ' + sessionToken }
@@ -71,7 +71,7 @@ const updateResponsivePosts = (title, message, image, id) => {
     if (newData.get('image') !== null || newData.get('image') === null) {
         let put = axiosRequests({
             method: 'put',
-            url: 'http://localhost:4200/homepage/update/' + id,
+            url: 'http://localhost:4200/posts/update/' + id,
 
             data: newData,
             headers: { 'Authorization': 'Bearer ' + sessionToken }
@@ -88,7 +88,7 @@ const deletePosts = (id) => {
 
     let deletes = axiosRequests({
         method: 'delete',
-        url: 'http://localhost:4200/homepage/delete',
+        url: 'http://localhost:4200/posts/delete',
         data: {
             id: id,
             employeeId: employeeId,
@@ -103,7 +103,7 @@ const getPost = (id) => {
 
     const sessionToken = window.localStorage.getItem('employee-token');
 
-    let post = axiosRequests('http://localhost:4200/homepage/post/' + id, {
+    let post = axiosRequests('http://localhost:4200/posts/post/' + id, {
         headers: { 'Authorization': 'Bearer ' + sessionToken }
     })
     return post;
@@ -116,7 +116,7 @@ const postLikes = (id) => {
 
     let likes = axiosRequests({
         method: 'post',
-        url: 'http://localhost:4200/homepage/likes',
+        url: 'http://localhost:4200/posts/likes',
 
         data: {
             postId: id,
@@ -128,6 +128,16 @@ const postLikes = (id) => {
 }
 
 
-const postService = { getPosts, postsPost, updatePosts, updateResponsivePosts, deletePosts, getPost, postLikes };
+const getPostList = () => {
+
+    const sessionToken = window.localStorage.getItem('employee-token');
+    const employeeId = window.localStorage.getItem('employee-id');
+
+    let myPostList = axiosRequests('http://localhost:4200/post-list/' + employeeId, { headers: { 'Authorization': 'Bearer ' + sessionToken } });
+    return myPostList;
+}
+
+
+const postService = { getPosts, postsPost, updatePosts, updateResponsivePosts, deletePosts, getPost, postLikes, getPostList };
 
 export default postService;

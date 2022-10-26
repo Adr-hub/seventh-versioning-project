@@ -6,6 +6,7 @@ import Homepage from './components/homepage/layout/layout';
 import AuthPage from './components/authentication/layout/layout';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Modifications from './components/modifications/layout/layout';
+import List from './components/post-list/layout/layout';
 const routing = createBrowserRouter([
   {
     path: '/intranet',
@@ -18,6 +19,10 @@ const routing = createBrowserRouter([
   {
     path: '/modifications/:id',
     element: <Modifications />
+  },
+  {
+    path: '/list',
+    element: <List />
   }
 ])
 const root = ReactDOM.createRoot(document.getElementById('root'));

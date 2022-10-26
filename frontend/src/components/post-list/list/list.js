@@ -1,9 +1,12 @@
-import './post.scss';
+import './list.scss';
 import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom';
 import testImage from '../../../images/icon.png';
 import postService from '../../../services/postService';
-const Post = (prop) => {
+
+
+const PostList = (prop) => {
+
     const [data, getData] = useState('');
     let animation = prop.propId;
     let form = prop.propForm;
@@ -14,7 +17,7 @@ const Post = (prop) => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        postService.getPosts()
+        postService.getPostList()
             .then((data) => {
                 console.log(data.status, 'RESPONSE');
                 const dataArray = data.data;
@@ -118,8 +121,9 @@ const Post = (prop) => {
     }
     else {
 
-        return <div className='zero'> There are no posts !</div>
+        return <div className='zero'>You have no posts !</div>
     }
-
 }
-export default Post;
+
+
+export default PostList;

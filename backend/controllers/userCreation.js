@@ -1,4 +1,4 @@
-const user = require('../models/user.js');
+const user = require('../models/userSchema.js');
 const validator = require('express-validator');
 const hashPackage = require('bcrypt');
 const randomKey = require('crypto');

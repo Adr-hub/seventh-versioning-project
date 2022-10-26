@@ -1,10 +1,10 @@
-const postUser = require('../models/postUser');
+const postSchema = require('../models/postSchema');
 const imageFolder = require('fs');
-const user = require('../models/user');
+const user = require('../models/userSchema');
 
-exports.homepagePosts = (req, res) => {
+exports.allPosts = (req, res) => {
     if (req.get('Authorization') !== undefined && req.get('Authorization') !== 'Bearer null')
-        postUser.find().sort({ date: 'desc' }).then((data) => {
+        postSchema.find().sort({ date: 'desc' }).then((data) => {
             res.status(200).json(data);
         })
             .catch((error) => {
@@ -24,7 +24,7 @@ exports.postSubmission = (req, res) => {
         if (req.file !== undefined) {
             let data = { title: req.body.title, message: req.body.message, image: req.protocol + '://' + req.get('host') + '/' + req.file.filename, employeeId: req.body.employeeId.toString(), date: Date.now() };
 
-            new postUser(data).save()
+            new postSchema(data).save()
 
                 .then(() => {
                     res.status(201).json({ message: 'Post submitted !' });
@@ -35,7 +35,7 @@ exports.postSubmission = (req, res) => {
         }
         else if (req.file === undefined) {
             let data = { title: req.body.title, message: req.body.message, employeeId: req.body.employeeId.toString(), date: Date.now() };
-            new postUser(data).save()
+            new postSchema(data).save()
 
                 .then(() => {
                     res.status(201).json({ message: 'Post submitted !' });
@@ -55,9 +55,9 @@ exports.updateData = (req, res, next) => {
 
     if (req.file !== undefined) {
         if ((req.body.employeeId.toString() === req.authorize.employeeId && req.get('Authorization') !== undefined && req.get('Authorization') !== 'Bearer null') || req.body.defaultRole === '1') {
-            let newData = { title: req.body.title, message: req.body.message, image: req.protocol + '://' + req.get('host') + '/' + req.file.filename, employeeId: req.body.employeeId.toString() };
+            let newData = { title: req.body.title, message: req.body.message, image: req.protocol + '://' + req.get('host') + '/' + req.file.filename };
 
-            postUser.findById(req.body.postId)
+            postSchema.findById(req.body.postId)
 
                 .then((posts) => {
                     if ((req.body.employeeId.toString() === posts.employeeId) || req.body.defaultRole === '1') {
@@ -72,11 +72,11 @@ exports.updateData = (req, res, next) => {
                         }
 
 
-                        postUser.findByIdAndUpdate(req.body.postId, {
+                        postSchema.findByIdAndUpdate(req.body.postId, {
                             title: newData.title,
                             message: newData.message,
                             image: newData.image,
-                            employeeId: newData.employeeId,
+                            employeeId: posts.employeeId,
                             likes: posts.likes,
                             date: Date.now()
                         })
@@ -108,15 +108,15 @@ exports.updateData = (req, res, next) => {
 
     else if (req.file === undefined) {
         if ((req.body.employeeId.toString() === req.authorize.employeeId && req.get('Authorization') !== undefined && req.get('Authorization') !== 'Bearer null') || req.body.defaultRole === '1') {
-            let newData = { title: req.body.title, message: req.body.message, employeeId: req.body.employeeId.toString() };
+            let newData = { title: req.body.title, message: req.body.message };
 
-            postUser.findById(req.body.postId)
+            postSchema.findById(req.body.postId)
                 .then((posts) => {
                     if ((req.body.employeeId.toString() === posts.employeeId) || req.body.defaultRole === '1') {
-                        postUser.findByIdAndUpdate(req.body.postId, {
+                        postSchema.findByIdAndUpdate(req.body.postId, {
                             title: newData.title,
                             message: newData.message,
-                            employeeId: newData.employeeId,
+                            employeeId: posts.employeeId,
                             image: undefined,
                             likes: posts.likes,
                             date: Date.now()
@@ -153,8 +153,8 @@ exports.updateResponsiveData = (req, res, next) => {
 
     if (req.file !== undefined) {
         if ((req.body.employeeId.toString() === req.authorize.employeeId && req.get('Authorization') !== undefined && req.get('Authorization') !== 'Bearer null') || req.body.defaultRole === '1') {
-            let newData = { title: req.body.title, message: req.body.message, image: req.protocol + '://' + req.get('host') + '/' + req.file.filename, employeeId: req.body.employeeId.toString() };
-            postUser.findById(req.params.id)
+            let newData = { title: req.body.title, message: req.body.message, image: req.protocol + '://' + req.get('host') + '/' + req.file.filename };
+            postSchema.findById(req.params.id)
 
                 .then((posts) => {
 
@@ -167,11 +167,11 @@ exports.updateResponsiveData = (req, res, next) => {
                                 }
                             });
                         }
-                        postUser.findByIdAndUpdate(req.params.id, {
+                        postSchema.findByIdAndUpdate(req.params.id, {
                             title: newData.title,
                             message: newData.message,
                             image: newData.image,
-                            employeeId: newData.employeeId,
+                            employeeId: posts.employeeId,
                             likes: posts.likes,
                             date: Date.now()
                         })
@@ -206,16 +206,16 @@ exports.updateResponsiveData = (req, res, next) => {
 
     else if (req.file === undefined) {
         if ((req.body.employeeId.toString() === req.authorize.employeeId && req.get('Authorization') !== undefined && req.get('Authorization') !== 'Bearer null') || req.body.defaultRole === '1') {
-            let newData = { title: req.body.title, message: req.body.message, employeeId: req.body.employeeId.toString() };
+            let newData = { title: req.body.title, message: req.body.message };
 
-            postUser.findById(req.params.id)
+            postSchema.findById(req.params.id)
 
                 .then((posts) => {
                     if ((req.body.employeeId.toString() === posts.employeeId) || req.body.defaultRole === '1') {
-                        postUser.findByIdAndUpdate(req.params.id, {
+                        postSchema.findByIdAndUpdate(req.params.id, {
                             title: newData.title,
                             message: newData.message,
-                            employeeId: newData.employeeId,
+                            employeeId: posts.employeeId,
                             likes: posts.likes,
                             date: Date.now()
                         })
@@ -251,7 +251,7 @@ exports.updateResponsiveData = (req, res, next) => {
 
 exports.deletion = (req, res, next) => {
 
-    postUser.findById(req.body.id)
+    postSchema.findById(req.body.id)
         .then((data) => {
             if ((req.body.id === data._id.toString() && req.body.employeeId.toString() === req.authorize.employeeId && req.body.employeeId.toString() === data.employeeId) || req.body.defaultRole === '1') {
 
@@ -268,7 +268,7 @@ exports.deletion = (req, res, next) => {
                                     res.status(500).json(err);
                                 }
 
-                                postUser.findByIdAndDelete(data._id)
+                                postSchema.findByIdAndDelete(data._id)
 
                                     .then(() => {
 
@@ -285,7 +285,7 @@ exports.deletion = (req, res, next) => {
 
                         else if (data.image === undefined) {
 
-                            postUser.findByIdAndDelete(data._id)
+                            postSchema.findByIdAndDelete(data._id)
 
                                 .then(() => {
 
@@ -314,7 +314,7 @@ exports.deletion = (req, res, next) => {
 }
 exports.existingPost = (req, res, next) => {
 
-    postUser.findById(req.params.id)
+    postSchema.findById(req.params.id)
         .then((data) => {
 
             if (req.params.id === data._id.toString() && req.get('Authorization') !== undefined && req.get('Authorization') !== 'Bearer null') {
@@ -335,12 +335,12 @@ exports.likePosts = (req, res, next) => {
 
     if (req.body.employeeId.toString() === req.authorize.employeeId && req.get('Authorization') !== undefined && req.get('Authorization') !== 'Bearer null') {
 
-        postUser.findById(req.body.postId)
+        postSchema.findById(req.body.postId)
             .then((data) => {
 
                 if (!data.likes.includes(req.authorize.employeeId)) {
 
-                    postUser.updateOne({ _id: data._id }, { $push: { likes: req.authorize.employeeId } }).then(() => {
+                    postSchema.updateOne({ _id: data._id }, { $push: { likes: req.authorize.employeeId } }).then(() => {
 
                         res.status(201).json({ likeCount: data.likes.length + 1, message: 'Successful post !' });
                     })
@@ -355,7 +355,7 @@ exports.likePosts = (req, res, next) => {
 
                     if (pushedEmployee === req.authorize.employeeId) {
 
-                        postUser.updateOne({ _id: data._id }, { $pull: { likes: pushedEmployee } })
+                        postSchema.updateOne({ _id: data._id }, { $pull: { likes: pushedEmployee } })
                             .catch((error) => {
                                 res.status(500).json(error);
                             })

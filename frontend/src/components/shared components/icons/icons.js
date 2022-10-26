@@ -1,4 +1,4 @@
-import './homepageIcons.scss';
+import './icons.scss';
 const HomePageIcons = (props) => {
     let heart = props.heart;
     if (heart) {

@@ -6,7 +6,8 @@ const expressFramework = express();
 const mongooseModule = require('mongoose');
 const registrationModule = require('./routes/signUpRoute');
 const connectionModule = require('./routes/loginRoute');
-const homepageModule = require('./routes/homepageRoutes');
+const postModule = require('./routes/postRoutes');
+const myPostList = require('./routes/postListRoute');
 let databaseUserName = process.env.MONGODB_USERNAME;
 let databasePassword = process.env.MONGODB_PASSWORD;
 let clusterName = process.env.MONGODB_CLUSTER_NAME;
@@ -33,8 +34,9 @@ expressFramework.use(static);
 
 expressFramework.use('/intranet/auth', registrationModule, connectionModule);
 
-expressFramework.use('/homepage', homepageModule.getPosts, homepageModule.postPost, homepageModule.updatePosts, homepageModule.updateResponsivePosts, homepageModule.updateResponsivePosts, homepageModule.deletePosts, homepageModule.getPost, homepageModule.likePosts);
+expressFramework.use('/posts', postModule.getPosts, postModule.postPost, postModule.updatePosts, postModule.updateResponsivePosts, postModule.updateResponsivePosts, postModule.deletePosts, postModule.getPost, postModule.likePosts);
 
+expressFramework.use('/post-list', myPostList.list);
 
 const expressServer = httpProtocol.createServer(expressFramework).listen(4200);
 expressServer.on('error', (err) => {

@@ -1,4 +1,4 @@
-import HomePageIcons from '../icons/homepageIcons';
+import HomePageIcons from '../icons/icons';
 import { useNavigate } from 'react-router-dom';
 import { useState, useRef, useEffect } from 'react';
 import './updateForm.scss';

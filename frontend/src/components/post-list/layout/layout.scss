@@ -1,8 +1,8 @@
-.homepage {
+.postList {
     width: 100%;
     height: auto;
     visibility: visible;
-    animation: posts 0.5s linear 0s;
+    animation: post-list 0.5s linear 0s;
 
     @media screen and (max-width: 992px) and (orientation: portrait) {
         height: auto;
@@ -15,16 +15,17 @@
 
 }
 
-.emptyHomepage {
+.emptyPostList {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     width: 100%;
     height: 100vh;
-    animation: posts 0.5s linear 0s;
+    animation: post-list 0.5s linear 0s;
 
     @media screen and (max-width:992px) {
-        height: auto;
+        height: 100vh;
+        border-bottom: 4px rgb(60, 58, 58) solid;
     }
 
     @media screen and (max-width: 992px) and (orientation: portrait) {
@@ -33,11 +34,12 @@
     }
 
     @media screen and (max-width: 768px) and (orientation: portrait) {
-        height: auto;
+        height: 100vh;
+        border-bottom: 4px rgb(60, 58, 58) solid;
     }
 }
 
-.firstContainer {
+.postListFirstContainer {
     display: flex;
     justify-content: space-between;
     margin-bottom: 0;
@@ -53,7 +55,7 @@
     }
 }
 
-.secondContainer {
+.postListSecondContainer {
     position: relative;
     margin-top: 14px;
     height: auto;
@@ -78,7 +80,7 @@
     align-items: center;
 }
 
-@keyframes posts {
+@keyframes post-list {
     from {
         visibility: hidden;
         transform: (translateX(-200%));
