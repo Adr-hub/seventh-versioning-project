@@ -59,7 +59,10 @@ p {
 
         &:hover {
             background-color: lighten($color: #4E5166, $amount: 8.3%);
-            transform: scaleY(0.988);
+        }
+
+        &:active {
+            transform: scaleY(0.967);
         }
 
         @media screen and (max-width:992px) {

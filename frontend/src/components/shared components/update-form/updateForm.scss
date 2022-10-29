@@ -20,11 +20,11 @@
         border-bottom: 0.2px black solid;
         animation: updateForm 0.25s ease-out forwards;
 
-        #title {
+        #updateTitle {
             width: 60%;
         }
 
-        #content {
+        #updateContent {
             width: 99%;
             height: 170px;
             resize: none;
@@ -35,11 +35,7 @@
             hyphens: auto;
         }
 
-        #description {
-            width: 60%;
-        }
-
-        .postButton {
+        .updatePostButton {
 
             margin-top: 0;
             margin-left: 37.9%;
@@ -53,6 +49,19 @@
             font-size: 15px;
             font-weight: bold;
             margin-bottom: 0.4%;
+            transition-property: transform;
+            transition-duration: 0.02s;
+            transition-timing-function: ease-in;
+            transform: scale(1);
+
+            &:hover {
+                border: 4px lighten(rgb(60, 58, 58), 12.3%) solid;
+                background-color: lighten(rgb(60, 58, 58), 11.3%);
+            }
+
+            &:active {
+                transform: scaleY(0.962);
+            }
         }
 
         @media screen and (max-width:992px) {
@@ -65,7 +74,7 @@
         display: none;
     }
 
-    .errors {
+    .updateErrors {
         color: red;
         position: fixed;
         right: 0.85%;

@@ -1,4 +1,4 @@
-.postContainer {
+.listPostContainer {
     border: 0.2px black solid;
     width: 76%;
     margin-left: 22%;
@@ -8,7 +8,7 @@
     overflow-x: hidden;
     margin-bottom: 8%;
 
-    .postTitle {
+    .listPostTitle {
         background-color: lighten(#4E5166, 4%);
         width: 100%;
         text-align: center;
@@ -22,7 +22,7 @@
         display: block;
     }
 
-    .postContent {
+    .listPostContent {
         margin-top: 0;
         background-color: white;
         width: 100%;
@@ -31,7 +31,7 @@
         justify-content: space-between;
         overflow-y: visible;
 
-        .postText {
+        .listPostText {
             margin-top: 0;
             position: relative;
             bottom: 3%;
@@ -50,7 +50,7 @@
             }
         }
 
-        .postImage {
+        .listPostImage {
             border-top: 1.60px black solid;
             border-bottom: 1.60px black solid;
             width: 43%;
@@ -69,7 +69,7 @@
         }
     }
 
-    .postInformations {
+    .listPostInformations {
         height: 19px;
         padding-top: 1.8%;
         width: 100%;
@@ -81,14 +81,14 @@
         border-radius: 1px;
         font-size: 15px;
 
-        .postDate {
+        .listPostDate {
 
             width: 50%;
             color: white;
         }
     }
 
-    .postButtonsContainer {
+    .listPostButtonsContainer {
         border-left: 1.20px black solid;
         border-right: 1.20px black solid;
         width: 100%;
@@ -100,7 +100,7 @@
             padding-right: 8px;
         }
 
-        .modifications {
+        .listModifications {
             background-color: darken(#FD2D01, 5.2%);
             color: white;
             padding: 1.1%;
@@ -109,6 +109,19 @@
             margin-top: 1.42%;
             margin-left: 0.42%;
             margin-bottom: 0.4%;
+            cursor: pointer;
+            transition-property: transform;
+            transition-duration: 0.02s;
+            transition-timing-function: ease-in;
+            transform: scale(1);
+
+            &:hover {
+                box-shadow: 0.020px 0.020px 1.2px #FD2D01;
+            }
+
+            &:active {
+                transform: scaleY(0.988);
+            }
 
             @media screen and (max-width:768px) {
                 padding: 1.51%;
@@ -118,7 +131,7 @@
             }
         }
 
-        .likes {
+        .listLikes {
             background-color: lighten(#4E5166, 4%);
             color: white;
             padding: 1.25%;
@@ -127,6 +140,19 @@
             margin-top: 1.42%;
             margin-left: 3.02%;
             margin-bottom: 0.4%;
+            cursor: pointer;
+            transition-property: transform;
+            transition-duration: 0.02s;
+            transition-timing-function: ease-in;
+            transform: scale(1);
+
+            &:hover {
+                background-color: lighten($color: #4E5166, $amount: 5.9%);
+            }
+
+            &:active {
+                transform: scale(0.999);
+            }
 
             @media screen and (max-width:768px) {
                 padding: 1.51%;
@@ -138,7 +164,7 @@
         }
 
 
-        .delete {
+        .listDelete {
             background-color: darken(#FD2D01, 5.2%);
             color: white;
             padding: 1.1%;
@@ -147,6 +173,20 @@
             margin-top: 1.42%;
             margin-left: 57.5%;
             margin-bottom: 0.4%;
+            cursor: pointer;
+            transition-property: transform;
+            transition-duration: 0.02s;
+            transition-timing-function: ease-in;
+            transform: scale(1);
+
+            &:hover {
+                box-shadow: 0.020px 0.020px 1.2px #FD2D01;
+            }
+
+            &:active {
+                transform: scaleY(0.990);
+            }
+
 
             @media screen and (max-width:992px) {
                 padding: 1.51%;
@@ -180,13 +220,13 @@
         width: 100%;
         margin-bottom: 10%;
 
-        .postTitle {
+        .listPostTitle {
             padding-top: 2.7%;
             padding-bottom: 1.7%;
             font-size: 16.7px;
         }
 
-        .postContent {
+        .listPostContent {
             margin-top: 0;
             height: 397px;
             font-size: 14.05px;
@@ -194,7 +234,7 @@
 
 
 
-            .postText {
+            .listPostText {
                 border-left: 0px black solid;
                 border-right: 0px black solid;
                 border-left: 0px black solid;
@@ -204,7 +244,7 @@
                 text-align: justify;
             }
 
-            .postImage {
+            .listPostImage {
 
                 height: 347.04px;
                 order: 1;
@@ -220,17 +260,13 @@
             }
         }
 
-        .postInformations {
+        .listPostInformations {
             padding-top: 7px;
             padding-right: 6px;
             padding-left: 4px;
             height: 42px;
 
-            .postDescription {
-                font-size: 14.8px;
-            }
-
-            .postDate {
+            .listPostDate {
                 font-size: 14.2px;
             }
         }
@@ -242,8 +278,8 @@
 }
 
 
-.zero {
-    width: 100%;
+.zerolistPost {
+    width: auto;
     text-align: center;
     margin-left: 31%;
     font-size: 23px;

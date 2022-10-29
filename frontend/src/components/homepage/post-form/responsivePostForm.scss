@@ -10,7 +10,7 @@
         margin-top: 10%;
         margin-bottom: 3%;
 
-        .notification {
+        .responsiveNotification {
             border: 0.2px black solid;
             border-bottom: 0;
             border-radius: 22px 22px 0 0;
@@ -34,12 +34,12 @@
             border-top: 0;
             border-radius: 0 0 22px 22px;
 
-            #title {
+            #responsiveTitle {
                 width: 60%;
                 margin-left: 1.1%;
             }
 
-            #content {
+            #responsiveContent {
                 width: 98.2%;
                 height: 170px;
                 resize: none;
@@ -52,7 +52,7 @@
                 hyphens: auto;
             }
 
-            #images {
+            #responsiveImages {
                 width: 60%;
                 margin-bottom: 3%;
                 margin-left: 1%;
@@ -63,10 +63,10 @@
                 margin-left: 1%;
             }
 
-            .submitButtonContainer {
+            .respSubmitButtonContainer {
                 width: 98%;
 
-                .postButton {
+                .respPostButton {
 
                     margin-top: 6.4%;
                     margin-left: 38.9%;
@@ -80,6 +80,22 @@
                     border-radius: 20px;
                     font-size: 15px;
                     font-weight: bold;
+                    transition-property: transform;
+                    transition-duration: 0.02s;
+                    transition-timing-function: ease-in;
+                    transform: scale(1);
+
+                    &:hover {
+                        border: 4px lighten(rgb(60, 58, 58), 12.3%) solid;
+                        background-color: lighten(rgb(60, 58, 58), 11.3%);
+                    }
+
+                    &:active {
+                        transform: scaleY(0.962);
+                    }
+
+
+
                 }
             }
         }
@@ -93,7 +109,7 @@
         form {
             width: 100%;
 
-            #content {
+            #responsiveContent {
                 flex-direction: column;
                 line-break: loose;
                 white-space: normal;
@@ -113,12 +129,12 @@
                 }
             }
 
-            .submitButtonContainer {
+            .respSubmitButtonContainer {
                 margin-left: 0;
                 display: flex;
                 justify-content: center;
 
-                .postButton {
+                .respPostButton {
                     margin: 0;
                 }
             }
@@ -129,7 +145,7 @@
         display: none;
     }
 
-    .errors {
+    .respErrors {
         color: red;
         position: relative;
         right: 3.05%;

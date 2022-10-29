@@ -21,6 +21,9 @@
 
         &:hover {
             background-color: lighten($color: #4E5166, $amount: 8.3%);
+        }
+
+        &:active {
             transform: scaleY(0.988);
         }
     }

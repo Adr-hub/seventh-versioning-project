@@ -34,7 +34,7 @@ const Homepage = () => {
             emptyPageRef.current.className = 'homepage';
         }
     }}><div className='firstContainer'><Header /><Navbar /><Button propId={animation} propForm={form} /></div>
-            <div className='secondContainer'><main className='mainContainer'><Post propId={animation} propForm={form} getPost={getPostId} posts={postId} deleteState={getState} getUpdates={getPutId} /><ReactModal isOpen={deletionActivation} onRequestClose={() => {
+            <div className='secondContainer'><main className='mainContainer'><Post propId={animation} propForm={form} getPost={getPostId} deleteState={getState} getUpdates={getPutId} /><ReactModal isOpen={deletionActivation} onRequestClose={() => {
                 getCancelButtonState(true);
                 getState(false);
             }} onAfterClose={() => {
@@ -48,7 +48,7 @@ const Homepage = () => {
 
                             postDeletion(0);
 
-                            window.scrollTo(0, 0);
+
                         })
 
                         .catch((error) => {
@@ -57,7 +57,7 @@ const Homepage = () => {
                 }
             }
             }
-                contentLabel='Confirmation dialog' ><Message deleteState={getState} cancelState={getCancelButtonState} /></ReactModal></main><PostForm propId={form} posts={postId} updates={putId} /><UpdateForm propId={form} updates={putId} /><ResponsivePostForm propId={animation} propForm={form} /></div><Footer modifications={false} /></div></>
+                contentLabel='Confirmation dialog' ><Message deleteState={getState} cancelState={getCancelButtonState} /></ReactModal></main><PostForm propId={form} posts={postId} updates={putId} /><UpdateForm propId={form} updates={putId} /><ResponsivePostForm propId={animation} propForm={form} /></div><div className='spinnerContainer'><div className='spinner'><div className='spinnerCenter'></div></div></div><Footer modifications={false} /></div></>
 };
 
 export default Homepage;

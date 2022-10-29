@@ -2,15 +2,46 @@
     width: 100%;
     height: auto;
     visibility: visible;
-    animation: posts 0.5s linear 0s;
+
+    &>*:not(.spinnerContainer) {
+        animation: posts 1.4s linear 0s;
+    }
+
 
     @media screen and (max-width: 992px) and (orientation: portrait) {
+
         height: auto;
         border-bottom: 4px rgb(60, 58, 58) solid;
+        animation: adjustment 0.1s linear 1.3s backwards;
+
+        @keyframes adjustment {
+            0% {
+                border-bottom: 0;
+            }
+
+            100% {
+                border-bottom: 0;
+            }
+        }
     }
 
     @media screen and (max-width: 768px) and (orientation: portrait) {
         height: auto;
+    }
+
+    @media screen and (max-width: 768px) and (orientation: portrait) {
+
+        animation: adjustment 0.1s linear 1.3s backwards;
+
+        @keyframes adjustment {
+            0% {
+                border-bottom: 0;
+            }
+
+            100% {
+                border-bottom: 0;
+            }
+        }
     }
 
 }
@@ -21,7 +52,12 @@
     justify-content: space-between;
     width: 100%;
     height: 100vh;
-    animation: posts 0.5s linear 0s;
+
+
+    &>*:not(.spinnerContainer) {
+        animation: posts 1.4s linear 0s;
+    }
+
 
     @media screen and (max-width:992px) {
         height: auto;
@@ -34,6 +70,17 @@
 
     @media screen and (max-width: 768px) and (orientation: portrait) {
         height: auto;
+        animation: adjustment 0.1s linear 1.3s backwards;
+
+        @keyframes adjustment {
+            0% {
+                border-bottom: 0;
+            }
+
+            100% {
+                border-bottom: 0;
+            }
+        }
     }
 }
 
@@ -72,7 +119,7 @@
 
 .mainContainer {
     width: 76%;
-    margin-left: 0;
+    overflow-x: hidden;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -87,6 +134,75 @@
     to {
         visibility: hidden;
         transform: (translateX(-200%));
+    }
+
+}
+
+.spinnerContainer {
+    padding-top: 30px;
+    height: 230px;
+    position: fixed;
+    top: 24%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    z-index: 3;
+    animation: spinner-container 1s linear 1.3s forwards;
+
+    .spinner {
+        border: 3.9px rgb(60, 58, 58) solid;
+        border-radius: 93px;
+        width: 104px;
+        height: 95px;
+
+        animation: spinner 1.3s ease-out 0.05s forwards;
+    }
+
+    .spinnerCenter {
+        margin-left: 43%;
+        border: 3.9px white solid;
+        background-color: white;
+        border-radius: 193px;
+        width: 100.3px;
+        height: 101px;
+        visibility: visible;
+        position: relative;
+        top: -6.9px;
+        right: 47px;
+        animation: spinner 1.3s ease-out 0.05s forwards;
+    }
+}
+
+@keyframes spinner {
+
+    0% {
+        transform: rotate(1turn);
+    }
+
+    100% {
+        transform: rotate(2.4turn);
+        visibility: hidden;
+    }
+}
+
+@keyframes spinner-container {
+
+    from {
+        color: transparent;
+        border: 0;
+        width: 0;
+        height: 0;
+        margin: 0;
+        visibility: hidden;
+    }
+
+    to {
+        color: transparent;
+        border: 0;
+        width: 0;
+        height: 0;
+        margin: 0;
+        visibility: hidden;
     }
 
 }

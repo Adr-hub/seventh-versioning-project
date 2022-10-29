@@ -25,6 +25,6 @@ const AuthPage = () => {
             <Tabs page={tabSelection} />
             <SignUp pageSelection={tab} />
             <Login pageSelection={tab} />
-        </main></div><Footer modifications={false} /></div></React.Fragment>);
+        </main></div><div className='intranetSpinnerContainer'><div className='intranetSpinner'><div className='intranetSpinnerCenter'></div></div></div><Footer modifications={false} /></div></React.Fragment>);
 }
 export default AuthPage;

@@ -31,7 +31,7 @@ const List = () => {
             emptyPageRef.current.className = 'postList';
         }
     }}><div className='postListFirstContainer'><Header /><Navbar /></div>
-            <div className='postListSecondContainer'><main className='mainContainer'><PostList propId={animation} propForm={form} getPost={getPostId} posts={postId} deleteState={getState} getUpdates={getPutId} /><ReactModal isOpen={deletionActivation} onRequestClose={() => {
+            <div className='postListSecondContainer'><main className='postListMainContainer'><PostList propId={animation} propForm={form} getPost={getPostId} deleteState={getState} getUpdates={getPutId} /><ReactModal isOpen={deletionActivation} onRequestClose={() => {
                 getCancelButtonState(true);
                 getState(false);
             }} onAfterClose={() => {
@@ -44,8 +44,6 @@ const List = () => {
                             console.log(value.status, 'RESPONSE');
 
                             postDeletion(0);
-
-                            window.scrollTo(0, 0);
                         })
 
                         .catch((error) => {
@@ -54,7 +52,7 @@ const List = () => {
                 }
             }
             }
-                contentLabel='Confirmation dialog' ><Message deleteState={getState} cancelState={getCancelButtonState} /></ReactModal></main><UpdateForm propId={form} updates={putId} /></div><Footer modifications={false} /></div></>
+                contentLabel='Confirmation dialog' ><Message deleteState={getState} cancelState={getCancelButtonState} /></ReactModal></main><UpdateForm propId={form} updates={putId} /></div><div className='listSpinnerContainer'><div className='listSpinner'><div className='listSpinnerCenter'></div></div></div><Footer modifications={false} /></div></>
 };
 
 export default List;

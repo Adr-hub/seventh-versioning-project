@@ -7,7 +7,6 @@
     padding-right: 1.1%;
     margin-bottom: 3%;
     overflow-x: hidden;
-    visibility: hidden;
 
     form {
         display: flex;
@@ -54,6 +53,22 @@
             font-size: 15px;
             font-weight: bold;
             margin-bottom: 0.4%;
+
+            transition-property: transform;
+            transition-duration: 0.02s;
+            transition-timing-function: ease-in;
+            transform: scale(1);
+
+            &:hover {
+                border: 4px lighten(rgb(60, 58, 58), 12.3%) solid;
+                background-color: lighten(rgb(60, 58, 58), 11.3%);
+            }
+
+            &:active {
+                transform: scaleY(0.962);
+            }
+
+
         }
 
         @media screen and (max-width:992px) {

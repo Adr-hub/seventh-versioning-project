@@ -10,22 +10,22 @@ const ResponsivePostForm = (prop) => {
     const messageErrorRef = useRef();
     const fileInputRef = useRef();
 
-    return (<div className='responsiveFormContainer'><p className='notification'>Add a post !</p><form encType="multipart/form-data" onChange={(ev) => {
+    return (<div className='responsiveFormContainer'><p className='responsiveNotification'>Add a post !</p><form encType="multipart/form-data" onChange={(ev) => {
 
         if (messageErrorRef.current !== undefined) {
             messageErrorRef.current.textContent = '';
         }
-    }}><label htmlFor="title"><HomePageIcons propId="title" />Title<br /><input type="text" id="title" name="title" onInput={(ev) => {
+    }}><label htmlFor="responsiveTitle"><HomePageIcons propId="title" />Title<br /><input type="text" id="responsiveTitle" name="title" onInput={(ev) => {
         getPostTitle(ev.target.value);
     }} /></label><br />
 
-        <label htmlFor="content"><HomePageIcons propId="text" />Content<br /><textarea id="content" name="message" maxLength="262" minLength="12" onInput={(ev) => {
+        <label htmlFor="responsiveContent"><HomePageIcons propId="text" />Content<br /><textarea id="responsiveContent" name="message" maxLength="262" minLength="12" onInput={(ev) => {
             getPostMessage(ev.target.value);
         }}></textarea></label><br />
 
-        <label htmlFor="images"><HomePageIcons propId="images" />Image<br /><input type="file" id="images" name="image" ref={fileInputRef} /></label><br />
+        <label htmlFor="responsiveImages"><HomePageIcons propId="images" />Image<br /><input type="file" id="responsiveImages" name="image" ref={fileInputRef} /></label><br />
 
-        <div className='submitButtonContainer'><input type="submit" value="Create the Post !" className='postButton' onClick={(ev) => {
+        <div className='respSubmitButtonContainer'><input type="submit" value="Create the Post !" className='respPostButton' onClick={(ev) => {
             ev.preventDefault();
 
             if (postMessage.length < 12 && postMessage.length !== 0 && postTitle.length !== 0) {
@@ -37,9 +37,8 @@ const ResponsivePostForm = (prop) => {
                 postService.postsPost(postTitle, postMessage, fileInputRef.current.files[0])
                     .then((value) => {
                         console.log(value.status, 'RESPONSE');
-                        window.scrollTo(0, 0);
+                        ev.preventDefault();
                         postCreation(0);
-
                     })
 
                     .catch((error) => {
@@ -61,7 +60,7 @@ const ResponsivePostForm = (prop) => {
 
         }} /></div>
     </form>
-        <p className="errors" ref={messageErrorRef}></p>
+        <p className="respErrors" ref={messageErrorRef}></p>
     </div>);
 }
 export default ResponsivePostForm;

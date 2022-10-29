@@ -36,22 +36,22 @@ const Modifications = (prop) => {
 
     }, [id]);
 
-    return (<><div className='responsiveModificationFormContainer'><p className='notification'>Modify your post !</p><form encType="multipart/form-data" onChange={(ev) => {
+    return (<><p className='alert-for-tablet-users'>On tablets you have to switch from landscape to portrait mode to access this page. You may also have to refresh the browser  !</p><div className='modificationPage'><div className='responsiveModificationFormContainer'><p className='modificationNotification'>Modify your post !</p><form encType="multipart/form-data" onChange={(ev) => {
 
         if (messageErrorRef.current !== undefined) {
             messageErrorRef.current.textContent = '';
         }
-    }}><label htmlFor="title"><HomePageIcons propId="title" />Title<br /><input type="text" id="title" name="title" value={postTitle !== undefined ? postTitle : initialTitle} onInput={(ev) => {
+    }}><label htmlFor="modificationTitle"><HomePageIcons propId="title" />Title<br /><input type="text" id="modificationTitle" name="title" value={postTitle !== undefined ? postTitle : initialTitle} onInput={(ev) => {
         getPostTitle(ev.target.value);
     }} /></label><br />
 
-        <label htmlFor="content"><HomePageIcons propId="text" />Content<br /><textarea id="content" name="message" minLength="12" maxLength="262" value={postMessage !== undefined ? postMessage : initialMessage} onInput={(ev) => {
+        <label htmlFor="modificationContent"><HomePageIcons propId="text" />Content<br /><textarea id="modificationContent" name="message" minLength="12" maxLength="262" value={postMessage !== undefined ? postMessage : initialMessage} onInput={(ev) => {
             getPostMessage(ev.target.value);
         }}></textarea></label><br />
 
-        <label htmlFor="images"><HomePageIcons propId="images" />Image<br /><input type="file" id="images" name="image" ref={fileInputRef} /></label><br />
+        <label htmlFor="modificationImages"><HomePageIcons propId="images" />Image<br /><input type="file" id="modificationImages" name="image" ref={fileInputRef} /></label><br />
 
-        <div className='submitButtonContainer'><input type="submit" value="Update the Post !" className='postButton' onClick={(ev) => {
+        <div className='modificationSubmitButtonContainer'><input type="submit" value="Update the Post !" className='modificationPostButton' onClick={(ev) => {
 
             ev.preventDefault();
 
@@ -92,7 +92,7 @@ const Modifications = (prop) => {
                         .then((value) => {
                             console.log(value.status, 'RESPONSE');
                             ev.preventDefault();
-                            postCreation('/homepage');
+                            postCreation(-1);
                         }
 
                         )
@@ -113,8 +113,8 @@ const Modifications = (prop) => {
 
         } /></div>
     </form>
-        <p className="errors" ref={messageErrorRef}></p>
-    </div><Footer modifications={true} /></>);
+        <p className="modificationErrors" ref={messageErrorRef}></p></div><div className='modificationSpinnerContainer'><div className='modificationSpinner'><div className='modificationSpinnerCenter'></div></div></div>
+        <Footer modifications={true} /></div></>);
 };
 
 export default Modifications;

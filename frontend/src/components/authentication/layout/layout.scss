@@ -4,6 +4,10 @@
     justify-content: space-between;
     height: 100vh;
 
+    &>*:not(.intranetSpinnerContainer) {
+        animation: intranet 1.4s linear 0s;
+    }
+
     @media screen and (max-width: 992px) {
         height: auto;
     }
@@ -15,10 +19,33 @@
     @media screen and (max-width: 992px) and (orientation: portrait) {
         height: 100vh;
         border-bottom: 4px rgb(60, 58, 58) solid;
+        animation: intranet-adjustment 0.1s linear 1.3s backwards;
+
+        @keyframes intranet-adjustment {
+            0% {
+                border-bottom: 0;
+            }
+
+            100% {
+                border-bottom: 0;
+            }
+        }
     }
 
     @media screen and (max-width: 768px) and (orientation: portrait) {
         height: auto;
+
+        animation: intranet-adjustment 0.1s linear 1.3s backwards;
+
+        @keyframes intranet-adjustment {
+            0% {
+                border-bottom: 0;
+            }
+
+            100% {
+                border-bottom: 0;
+            }
+        }
     }
 
 }
@@ -61,4 +88,88 @@
     @media screen and (max-width:768px) {
         margin-top: 7%;
     }
+}
+
+
+
+@keyframes intranet {
+    from {
+        visibility: hidden;
+        transform: (translateX(-200%));
+    }
+
+    to {
+        visibility: hidden;
+        transform: (translateX(-200%));
+    }
+
+}
+
+.intranetSpinnerContainer {
+    padding-top: 30px;
+    height: 230px;
+    position: fixed;
+    top: 24%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    z-index: 3;
+    animation: intranet-spinner-container 1s linear 1.3s forwards;
+
+    .intranetSpinner {
+        border: 3.9px rgb(60, 58, 58) solid;
+        border-radius: 93px;
+        width: 104px;
+        height: 95px;
+
+        animation: intranet-spinner 1.3s ease-out 0.05s forwards;
+    }
+
+    .intranetSpinnerCenter {
+        margin-left: 43%;
+        border: 3.9px white solid;
+        background-color: white;
+        border-radius: 193px;
+        width: 100.3px;
+        height: 101px;
+        visibility: visible;
+        position: relative;
+        top: -6.9px;
+        right: 47px;
+        animation: intranet-spinner 1.3s ease-out 0.05s forwards;
+    }
+}
+
+@keyframes intranet-spinner {
+
+    0% {
+        transform: rotate(1turn);
+    }
+
+    100% {
+        transform: rotate(2.4turn);
+        visibility: hidden;
+    }
+}
+
+@keyframes intranet-spinner-container {
+
+    from {
+        color: transparent;
+        border: 0;
+        width: 0;
+        height: 0;
+        margin: 0;
+        visibility: hidden;
+    }
+
+    to {
+        color: transparent;
+        border: 0;
+        width: 0;
+        height: 0;
+        margin: 0;
+        visibility: hidden;
+    }
+
 }
