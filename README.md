@@ -28,7 +28,7 @@ This will add a node_modules folder containing up to date dependencies.
 
     Click on the ellipsis: a list is displayed. Then click on `Command Line Tools`. 
 
-4. On the tools page there is another link you have to follow in order to install `MongoDB Database Tools` on your OS. 
+4. On the tools page there is another link you have to follow in order to install `MongoDB Database Tools`. 
 
     Once installed go back to the command line tools page. 
 
@@ -40,9 +40,9 @@ This will add a node_modules folder containing up to date dependencies.
 
     A connection URI is generated. 
 
-7. Replace the comment in line 17 of the `server.js` file with the connection string.
+7. Replace the comment in line 17 of the `server.js` file with the connection string. It should look like: 
 
-    It should look like: `mongodb+srv://'<username>:<password>@<cluster-name>.mongodb.net/Intranet?retryWrites=true&w=majority`.
+  `mongodb+srv://'<username>:<password>@<cluster-name>.mongodb.net/Intranet?retryWrites=true&w=majority`.
 
 ### Npm start
 
