@@ -40,7 +40,7 @@ This will add a node_modules folder containing up to date dependencies.
 
     A connection URI is generated. 
 
-7. Replace the comment in line 17 of the `server.js` file with the connection string. It should look like: 
+7. Replace the comment in line 14 of the `server.js` file with the connection string. It should look like: 
 
    `mongodb+srv://<username>:<password>@<cluster-name>.mongodb.net/Intranet?retryWrites=true&w=majority`.
 
