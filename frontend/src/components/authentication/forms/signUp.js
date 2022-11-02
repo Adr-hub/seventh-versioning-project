@@ -1,4 +1,4 @@
-import './signUp.scss';
+import './forms.scss';
 import Icons from '../icons/icons';
 import Errors from '../errors/errors';
 import { useNavigate } from 'react-router-dom';
@@ -13,76 +13,22 @@ const SignUp = (prop) => {
     const formRef = useRef();
     const errorRef = useRef();
     const navigation = useNavigate();
-
-
+    let getAuthPageSize = prop.size;
     if (prop.pageSelection === 'signUp') {
 
         return (<section className="formContainer"><form method='POST' ref={formRef}>
             <label htmlFor="user" className='userLabel'><Icons propId="userProp" /> Username<input type="text" id="user" name="email" required onInput={
                 (ev) => {
                     getUserEmail(ev.target.value);
-
-                    let usernameConditions = /([/<>/;:!?'{}])+/;
-                    let conditionsTest = usernameConditions.test(ev.target.value);
-                    let charactersCheck = /([/<>/;:!?'{}])+/;
-                    let characterTest = charactersCheck.test(userPassword);
-
-                    if (!conditionsTest && ev.target.value !== '') {
-                        createUserError('valid-email');
-
-                        if (!conditionsTest && ev.target.value !== '' && !characterTest && userPassword !== '') {
-
-                            submissionRef.className = 'sendButton';
-                            submissionRef.disabled = false;
-                        }
-                        else {
-                            submissionRef.className = 'unvalidButton';
-                            submissionRef.disabled = true;
-                        }
-
-                    }
-                    else if (ev.target.value !== '') {
-                        createUserError('wrong-email');
-                        getUserEmail(ev.target.value);
-                        submissionRef.className = 'unvalidButton';
-                        submissionRef.disabled = true;
-                    }
                 }
             } /></label><Errors error={userError} paragraphClass={errorRef} />
             <label htmlFor="pass" className='passLabel'><Icons propId="passwordProp" /> Password<input type="password" id="pass" name="password" required onInput={
                 (ev) => {
 
                     getUserPassword(ev.target.value)
-
-                    let usernameConditions = /([/<>/;:!?'{}])+/;
-                    let conditionsTest = usernameConditions.test(userEmail);
-                    let charactersCheck = /([/<>/;:!?'{}])+/;
-                    let characterTest = charactersCheck.test(ev.target.value);
-
-                    if (!characterTest && ev.target.value !== '') {
-
-                        createPasswordError('valid-password');
-
-                        if (!characterTest && ev.target.value !== '' && !conditionsTest && userEmail !== '') {
-
-                            submissionRef.className = 'sendButton';
-                            submissionRef.disabled = false;
-
-                        }
-                        else {
-                            submissionRef.className = 'unvalidButton';
-                            submissionRef.disabled = true;
-                        }
-                    }
-                    else if (ev.target.value !== '') {
-                        createPasswordError('wrong-password');
-
-                        submissionRef.className = 'unvalidButton';
-                        submissionRef.disabled = true;
-                    }
                 }
             } /></label><Errors error={passwordError} paragraphClass={errorRef} />
-            <input type="submit" value="Sign Up !" className='unvalidButton' ref={submissionRef} onClick={(ev) => {
+            <input type="submit" value="Sign Up !" className='sendButton' ref={submissionRef} onClick={(ev) => {
 
                 ev.preventDefault();
 
@@ -113,7 +59,6 @@ const SignUp = (prop) => {
 
                                 })
                                 .catch((error) => {
-
                                     console.log(error)
                                 })
 
@@ -125,7 +70,7 @@ const SignUp = (prop) => {
                                 getUserPassword('');
                                 formRef.current.reset();
                             }
-
+                            getAuthPageSize(true);
                             errorRef.current.textContent = 'Registration error ! ' + error.message + ' !';
 
                         })
@@ -138,8 +83,7 @@ const SignUp = (prop) => {
 
                         if (userEmail !== '') {
                             createUserError('wrong-email');
-
-                            submissionRef.className = 'unvalidButton';
+                            getAuthPageSize(true);
 
                             submissionRef.disabled = true;
                         }
@@ -148,8 +92,7 @@ const SignUp = (prop) => {
                     if (userEmail.length > 70 && userEmail !== ' ' && !userOtherCharactersTest) {
                         if (userEmail !== '') {
                             createUserError('long-email');
-
-                            submissionRef.className = 'unvalidButton';
+                            getAuthPageSize(true);
 
                             submissionRef.disabled = true;
                         }
@@ -159,8 +102,7 @@ const SignUp = (prop) => {
                         if (userEmail !== '') {
 
                             createUserError('short-email');
-
-                            submissionRef.className = 'unvalidButton';
+                            getAuthPageSize(true);
 
                             submissionRef.disabled = true;
                         }
@@ -169,8 +111,7 @@ const SignUp = (prop) => {
                     if (!characterTest || passwordOtherCharactersTest) {
                         if (userPassword !== '') {
                             createPasswordError('wrong-password');
-
-                            submissionRef.className = 'unvalidButton';
+                            getAuthPageSize(true);
 
                             submissionRef.disabled = true;
                         }
@@ -179,8 +120,7 @@ const SignUp = (prop) => {
                     if (userPassword.length > 45 && !userPassword.match(/\s/) && !passwordOtherCharactersTest) {
                         if (userPassword !== '') {
                             createPasswordError('long-password');
-
-                            submissionRef.className = 'unvalidButton';
+                            getAuthPageSize(true);
 
                             submissionRef.disabled = true;
                         }
@@ -190,9 +130,7 @@ const SignUp = (prop) => {
                     if (userPassword.length < 7 && userPassword !== ' ' && !passwordOtherCharactersTest) {
                         if (userPassword !== '') {
                             createPasswordError('short-password');
-
-                            submissionRef.className = 'unvalidButton';
-
+                            getAuthPageSize(true);
                             submissionRef.disabled = true;
                         }
                     }
@@ -200,23 +138,22 @@ const SignUp = (prop) => {
 
                     if (userEmail === '' && userPassword !== '') {
                         submissionRef.disabled = true;
-                        submissionRef.className = 'unvalidButton';
-
+                        getAuthPageSize(true);
                         createUserError('empty-user');
                     }
 
                     if (userPassword === '' && userEmail !== '') {
                         submissionRef.disabled = true;
-                        submissionRef.className = 'unvalidButton';
 
+                        getAuthPageSize(true);
                         createPasswordError('empty-pass');
                     }
 
                     if (userEmail === '' && userPassword === '') {
-                        submissionRef.disabled = true;
-                        submissionRef.className = 'unvalidButton';
 
-                        createPasswordError('empty-form');
+                        getAuthPageSize(true);
+                        createUserError('empty-user');
+                        createPasswordError('empty-pass');
                     }
                 }
             }}

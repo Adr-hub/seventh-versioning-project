@@ -51,6 +51,58 @@
 }
 
 
+.resizedPage {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: auto;
+
+    &>*:not(.intranetSpinnerContainer) {
+        animation: intranet 1.4s linear 0s;
+    }
+
+    @media screen and (max-width: 992px) {
+        height: auto;
+    }
+
+    @media screen and (max-width: 768px) {
+        height: auto;
+    }
+
+    @media screen and (max-width: 992px) and (orientation: portrait) {
+        height: auto;
+        animation: intranet-adjustment 0.1s linear 1.3s backwards;
+
+        @keyframes intranet-adjustment {
+            0% {
+                border-bottom: 0;
+            }
+
+            100% {
+                border-bottom: 0;
+            }
+        }
+    }
+
+    @media screen and (max-width: 768px) and (orientation: portrait) {
+        height: auto;
+
+        animation: intranet-adjustment 0.1s linear 1.3s backwards;
+
+        @keyframes intranet-adjustment {
+            0% {
+                border-bottom: 0;
+            }
+
+            100% {
+                border-bottom: 0;
+            }
+        }
+    }
+
+}
+
+
 .authenticationContent {
     display: flex;
     flex-direction: row;

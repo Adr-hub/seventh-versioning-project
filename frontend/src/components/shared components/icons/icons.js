@@ -1,5 +1,5 @@
 import './icons.scss';
-const HomePageIcons = (props) => {
+const SharedIcons = (props) => {
     let heart = props.heart;
     if (heart) {
         return (<span className="likeContainer"><i className="far fa-heart"></i></span >);
@@ -26,4 +26,4 @@ const HomePageIcons = (props) => {
     }
 }
 
-export default HomePageIcons;
+export default SharedIcons;

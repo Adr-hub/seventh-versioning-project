@@ -1,10 +1,10 @@
 import './layout.scss';
-import HomePageIcons from '../../shared components/icons/icons';
+import SharedIcons from '../../shared components/icons/icons';
 import Footer from "../../shared components/footer/footer"
 import { useState, useRef, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import postService from '../../../services/postService';
-const Modifications = (prop) => {
+const Modifications = () => {
     let postCreation = useNavigate();
     const [initialTitle, getInitialTitle] = useState('');
     const [initialMessage, getInitialMessage] = useState('');
@@ -41,15 +41,15 @@ const Modifications = (prop) => {
         if (messageErrorRef.current !== undefined) {
             messageErrorRef.current.textContent = '';
         }
-    }}><label htmlFor="modificationTitle"><HomePageIcons propId="title" />Title<br /><input type="text" id="modificationTitle" name="title" value={postTitle !== undefined ? postTitle : initialTitle} onInput={(ev) => {
+    }}><label htmlFor="modificationTitle"><SharedIcons propId="title" />Title<br /><input type="text" id="modificationTitle" name="title" value={postTitle !== undefined ? postTitle : initialTitle} onInput={(ev) => {
         getPostTitle(ev.target.value);
     }} /></label><br />
 
-        <label htmlFor="modificationContent"><HomePageIcons propId="text" />Content<br /><textarea id="modificationContent" name="message" minLength="12" maxLength="262" value={postMessage !== undefined ? postMessage : initialMessage} onInput={(ev) => {
+        <label htmlFor="modificationContent"><SharedIcons propId="text" />Content<br /><textarea id="modificationContent" name="message" minLength="12" maxLength="262" value={postMessage !== undefined ? postMessage : initialMessage} onInput={(ev) => {
             getPostMessage(ev.target.value);
         }}></textarea></label><br />
 
-        <label htmlFor="modificationImages"><HomePageIcons propId="images" />Image<br /><input type="file" id="modificationImages" name="image" ref={fileInputRef} /></label><br />
+        <label htmlFor="modificationImages"><SharedIcons propId="images" />Image<br /><input type="file" id="modificationImages" name="image" ref={fileInputRef} /></label><br />
 
         <div className='modificationSubmitButtonContainer'><input type="submit" value="Update the Post !" className='modificationPostButton' onClick={(ev) => {
 

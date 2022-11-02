@@ -1,4 +1,4 @@
-import HomePageIcons from '../../shared components/icons/icons';
+import SharedIcons from '../../shared components/icons/icons';
 import { useNavigate } from 'react-router-dom';
 import { useState, useRef } from 'react';
 import './post-form.scss';
@@ -24,16 +24,16 @@ const PostForm = (prop) => {
             if (messageErrorRef.current !== undefined) {
                 messageErrorRef.current.textContent = '';
             }
-        }}><label htmlFor="title"><HomePageIcons propId="title" />Title<br /><input type="text" id="title" name="title" onInput={(ev) => {
+        }}><label htmlFor="title"><SharedIcons propId="title" />Title<br /><input type="text" id="title" name="title" onInput={(ev) => {
             getPostTitle(ev.target.value);
 
         }} /></label><br />
 
-            <label htmlFor="content"><HomePageIcons propId="text" />Content<br /><textarea id="content" name="message" maxLength="342" minLength="12" onInput={(ev) => {
+            <label htmlFor="content"><SharedIcons propId="text" />Content<br /><textarea id="content" name="message" maxLength="342" minLength="12" onInput={(ev) => {
                 getPostMessage(ev.target.value);
             }}></textarea></label><br />
 
-            <label htmlFor="images"><HomePageIcons propId="images" />Image<br /><input type="file" id="images" name="image" ref={fileInputRef} /></label><br />
+            <label htmlFor="images"><SharedIcons propId="images" />Image<br /><input type="file" id="images" name="image" ref={fileInputRef} /></label><br />
 
             <input type="submit" value="Create the Post !" className='postButton' onClick={(ev) => {
                 ev.preventDefault();

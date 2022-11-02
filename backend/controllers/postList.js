@@ -1,10 +1,8 @@
-const postUser = require('../models/postSchema');
-const imageFolder = require('fs');
-const user = require('../models/userSchema');
+const userList = require('../models/postSchema');
 
 exports.posts = (req, res, next) => {
     if (req.get('Authorization') !== undefined && req.get('Authorization') !== 'Bearer null')
-        postUser.find({ employeeId: req.authorize.employeeId }).sort({ date: 'desc' }).then((data) => {
+        userList.find({ employeeId: req.authorize.employeeId }).sort({ date: 'desc' }).then((data) => {
 
             res.json(data).status(200);
         })

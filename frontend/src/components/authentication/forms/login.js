@@ -1,4 +1,4 @@
-import './login.scss';
+import './forms.scss';
 import Icons from '../icons/icons';
 import Errors from '../errors/errors';
 import { useNavigate } from 'react-router-dom';
@@ -11,7 +11,6 @@ const Login = (prop) => {
     const [userPassword, getUserPassword] = useState('');
     const submissionRef = useRef();
     const formRef = useRef();
-
     const errorRef = useRef();
     const navigation = useNavigate();
 
@@ -29,7 +28,7 @@ const Login = (prop) => {
                     getUserPassword(ev.target.value);
                 }
             } /></label><Errors error={passwordError} paragraphClass={errorRef} />
-            <input type="submit" value="Login !" className='unvalidButton' ref={submissionRef} onClick={(ev) => {
+            <input type="submit" value="Login !" className='sendButton' ref={submissionRef} onClick={(ev) => {
 
                 ev.preventDefault();
 
@@ -58,6 +57,7 @@ const Login = (prop) => {
                                 formRef.current.reset();
                             }
                             console.log(error)
+
                             errorRef.current.textContent = 'Login error ! ' + error.message + ' !';
                             errorRef.current.className = 'password-errors';
                         })
@@ -66,7 +66,6 @@ const Login = (prop) => {
                 else {
 
                     createPasswordError('empty-form');
-
                 }
             }
             }

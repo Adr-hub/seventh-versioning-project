@@ -1,10 +1,6 @@
 const user = require('../models/userSchema.js');
 const validator = require('express-validator');
 const hashPackage = require('bcrypt');
-const randomKey = require('crypto');
-const tokens = require('jsonwebtoken');
-let adminUserName = process.env.ADMIN_USERNAME;
-let adminPassword = process.env.ADMIN_PASSWORD;
 exports.auth = (req, res) => {
     if (!req.body.email.match(/[<>/;'{}]+/) && !req.body.password.match(/[<>/;{}]+/) && validator.body(req.body.email).isEmail()) {
         hashPackage.hash(req.body.password, 12).then((hash) => {

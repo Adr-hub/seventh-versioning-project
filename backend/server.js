@@ -7,14 +7,11 @@ const mongooseModule = require('mongoose');
 const registrationModule = require('./routes/signUpRoute');
 const connectionModule = require('./routes/loginRoute');
 const postModule = require('./routes/postRoutes');
-const myPostList = require('./routes/postListRoute');
-let databaseUserName = process.env.MONGODB_USERNAME;
-let databasePassword = process.env.MONGODB_PASSWORD;
-let clusterName = process.env.MONGODB_CLUSTER_NAME;
+const myPostListModule = require('./routes/postListRoute');
 const static = express.static('images', { index: false });
 const json = express.json();
 
-mongooseModule.connect('mongodb+srv://' + databaseUserName + ':' + databasePassword + '@' + clusterName + '.mongodb.net/Intranet?retryWrites=true&w=majority')
+mongooseModule.connect(/*Insert the connection URI here !*/)
     .then(function () {
         console.log('Connection succeeded !');
     })
@@ -34,9 +31,9 @@ expressFramework.use(static);
 
 expressFramework.use('/intranet/auth', registrationModule, connectionModule);
 
-expressFramework.use('/posts', postModule.getPosts, postModule.postPost, postModule.updatePosts, postModule.updateResponsivePosts, postModule.updateResponsivePosts, postModule.deletePosts, postModule.getPost, postModule.likePosts);
+expressFramework.use('/posts', postModule.getPosts, postModule.postPost, postModule.updatePost, postModule.updateResponsivePost, postModule.deletePost, postModule.getPost, postModule.likePost);
 
-expressFramework.use('/post-list', myPostList.list);
+expressFramework.use('/post-list', myPostListModule.list);
 
 const expressServer = httpProtocol.createServer(expressFramework).listen(4200);
 expressServer.on('error', (err) => {

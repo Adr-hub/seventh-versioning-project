@@ -1,4 +1,4 @@
-import HomePageIcons from '../../shared components/icons/icons';
+import SharedIcons from '../../shared components/icons/icons';
 import './responsivePostForm.scss';
 import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -15,15 +15,15 @@ const ResponsivePostForm = (prop) => {
         if (messageErrorRef.current !== undefined) {
             messageErrorRef.current.textContent = '';
         }
-    }}><label htmlFor="responsiveTitle"><HomePageIcons propId="title" />Title<br /><input type="text" id="responsiveTitle" name="title" onInput={(ev) => {
+    }}><label htmlFor="responsiveTitle"><SharedIcons propId="title" />Title<br /><input type="text" id="responsiveTitle" name="title" onInput={(ev) => {
         getPostTitle(ev.target.value);
     }} /></label><br />
 
-        <label htmlFor="responsiveContent"><HomePageIcons propId="text" />Content<br /><textarea id="responsiveContent" name="message" maxLength="262" minLength="12" onInput={(ev) => {
+        <label htmlFor="responsiveContent"><SharedIcons propId="text" />Content<br /><textarea id="responsiveContent" name="message" maxLength="262" minLength="12" onInput={(ev) => {
             getPostMessage(ev.target.value);
         }}></textarea></label><br />
 
-        <label htmlFor="responsiveImages"><HomePageIcons propId="images" />Image<br /><input type="file" id="responsiveImages" name="image" ref={fileInputRef} /></label><br />
+        <label htmlFor="responsiveImages"><SharedIcons propId="images" />Image<br /><input type="file" id="responsiveImages" name="image" ref={fileInputRef} /></label><br />
 
         <div className='respSubmitButtonContainer'><input type="submit" value="Create the Post !" className='respPostButton' onClick={(ev) => {
             ev.preventDefault();

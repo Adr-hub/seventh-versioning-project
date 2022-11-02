@@ -1,7 +1,7 @@
 import './post.scss';
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
-import testImage from '../../../images/icon.png';
+import defaultImage from '../../../images/icon.png';
 import postService from '../../../services/postService';
 const Post = (prop) => {
     const [data, getData] = useState('');
@@ -38,7 +38,7 @@ const Post = (prop) => {
 
             return (<div className="postContainer" data-id={data._id} key={data._id}><div className="postTitle">{data.title}</div>
                 <div className="postContent">
-                    <div className="postText"><p>{data.message}</p></div><div className="postImage" ><img alt={data.image !== undefined ? "Le post intitulé : '" + data.title + "' joint ce contenu additionnel." : "Groupomania"} src={data.image !== undefined ? data.image : testImage} />
+                    <div className="postText"><p>{data.message}</p></div><div className="postImage" ><img alt={data.image !== undefined ? "Le post intitulé : '" + data.title + "' joint ce contenu additionnel." : "Groupomania"} src={data.image !== undefined ? data.image : defaultImage} />
                     </div>
                 </div>
                 <div className="postButtonsContainer">
@@ -68,7 +68,6 @@ const Post = (prop) => {
                             if (ev.detail >= 1 && form === 'update' && ev.target.textContent === 'Modifying') {
                                 ev.target.textContent = 'Modify';
                                 animation('unanimate');
-                                getPutId('modifying');
                             }
                             if (ev.detail >= 1 && window.innerWidth <= 992 && ev.target.textContent === 'Modify') {
                                 animation('removed');
@@ -124,8 +123,7 @@ const Post = (prop) => {
 
     else {
 
-        return <div className='zeroPost'
-        > There are no posts !</div>
+        return <div className='zeroPost'> There are no posts !</div>
     }
 
 }

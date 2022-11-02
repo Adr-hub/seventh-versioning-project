@@ -19,7 +19,6 @@
         font-size: 18px;
         position: relative;
         bottom: 6px;
-        display: block;
     }
 
     .postContent {
@@ -44,9 +43,11 @@
 
             p {
                 line-break: loose;
-                white-space: normal;
+                white-space: pre-wrap;
                 overflow-wrap: break-word;
                 width: 100%;
+
+
             }
         }
 
@@ -155,7 +156,8 @@
             }
 
             @media screen and (max-width:768px) {
-                padding: 1.51%;
+                padding-bottom: 1.51%;
+                padding-top: 1.51%;
                 padding-left: 2.4%;
                 padding-right: 2%;
                 margin-left: 2.42%;
@@ -228,7 +230,7 @@
 
         .postContent {
             margin-top: 0;
-            height: 397px;
+            height: 455px;
             font-size: 14.05px;
             flex-direction: column;
 
@@ -238,7 +240,7 @@
                 border-left: 0px black solid;
                 border-right: 0px black solid;
                 border-left: 0px black solid;
-                height: 347px;
+                height: 455px;
                 order: 2;
                 width: auto;
                 text-align: justify;

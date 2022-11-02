@@ -13,9 +13,9 @@ const route = expressRoutes.Router();
 const getPosts = route.get('/all', check, getAllPosts);
 const getPost = route.get('/post/:id', check, post);
 const postPost = route.post('/new-posts', check, images, submission);
-const updatePosts = route.put('/update', check, images, update);
-const updateResponsivePosts = route.put('/update/:id', check, images, responsiveUpdate);
-const deletePosts = route.delete('/delete', check, removing);
-const likePosts = route.post('/likes', check, likes)
+const updatePost = route.put('/update', check, images, update);
+const updateResponsivePost = route.put('/update/:id', check, images, responsiveUpdate);
+const deletePost = route.delete('/delete', check, removing);
+const likePost = route.post('/likes', check, likes)
 
-module.exports = { getPosts, postPost, updatePosts, updateResponsivePosts, deletePosts, getPost, likePosts };
+module.exports = { getPosts, postPost, updatePost, updateResponsivePost, deletePost, getPost, likePost };

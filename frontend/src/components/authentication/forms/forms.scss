@@ -25,8 +25,6 @@
                 border-radius: 10px;
                 margin-left: 0.6%;
                 width: 92%;
-                display: inline-block;
-                vertical-align: middle;
             }
         }
 
@@ -40,14 +38,11 @@
                 border-radius: 10px;
                 margin-left: 0.6%;
                 width: 92%;
-                display: inline-block;
-                vertical-align: middle;
-                font-family: 'Lato', sans-serif;
             }
         }
 
         .sendButton {
-            margin-top: 6.4%;
+            margin-top: 1.4%;
             margin-left: 65.8%;
             border: 4px lighten(rgb(60, 58, 58), 7.3%) solid;
             background-color: lighten(rgb(60, 58, 58), 7.3%);
@@ -88,7 +83,6 @@
                 margin-left: 1.4%;
                 width: 98%;
                 margin-top: 15%;
-
 
                 input {
                     width: 98%;
@@ -140,46 +134,5 @@
 
             }
         }
-    }
-}
-
-
-.unvalidButton {
-    margin-top: 6.4%;
-    margin-left: 65.8%;
-    border: 4px lighten(rgb(60, 58, 58), 7.3%) solid;
-    background-color: lighten(rgb(60, 58, 58), 7.3%);
-    color: white;
-    width: 27%;
-    padding: 1.2%;
-    cursor: pointer;
-    border-radius: 20px;
-    font-size: 15px;
-    font-weight: bold;
-    transition-property: transform;
-    transition-duration: 0.02s;
-    transition-timing-function: ease-in;
-    transform: scale(1);
-
-    &:hover {
-        border: 4px lighten(rgb(60, 58, 58), 12.3%) solid;
-        background-color: lighten(rgb(60, 58, 58), 11.3%);
-    }
-
-    &:active {
-        transform: scaleY(0.962);
-    }
-
-    @media screen and (max-width: 992px) {
-        margin-left: 74%;
-        width: 24%;
-
-    }
-
-    @media screen and (max-width: 768px) {
-        margin-left: 70%;
-        padding-left: 0.8%;
-        padding-right: 0.5%;
-        width: 27%;
     }
 }

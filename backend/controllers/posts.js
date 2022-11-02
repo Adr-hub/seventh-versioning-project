@@ -1,6 +1,5 @@
 const postSchema = require('../models/postSchema');
 const imageFolder = require('fs');
-const user = require('../models/userSchema');
 
 exports.allPosts = (req, res) => {
     if (req.get('Authorization') !== undefined && req.get('Authorization') !== 'Bearer null')
@@ -16,7 +15,6 @@ exports.allPosts = (req, res) => {
     }
 
 };
-
 
 
 exports.postSubmission = (req, res) => {
@@ -70,7 +68,6 @@ exports.updateData = (req, res, next) => {
                                 }
                             });
                         }
-
 
                         postSchema.findByIdAndUpdate(req.body.postId, {
                             title: newData.title,
@@ -135,7 +132,6 @@ exports.updateData = (req, res, next) => {
                         let error = new Error('Unauthorize modification !');
                         res.status(403).json({ message: error.message });
                     }
-
                 })
 
                 .catch((error) => {

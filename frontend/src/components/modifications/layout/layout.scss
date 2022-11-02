@@ -115,7 +115,7 @@
                         margin-right: 5%;
                         margin-left: 1.1%;
                         line-break: loose;
-                        white-space: normal;
+                        white-space: pre-wrap;
                         overflow-wrap: break-word;
                         word-break: break-all;
                         hyphens: auto;
@@ -177,7 +177,7 @@
 
                         flex-direction: column;
                         line-break: loose;
-                        white-space: normal;
+                        white-space: pre-wrap;
                         overflow-wrap: break-word;
                         word-break: break-all;
                         hyphens: auto;
@@ -205,10 +205,6 @@
                         }
                     }
                 }
-            }
-
-            .no-errors {
-                display: none;
             }
 
             .modificationErrors {

@@ -1,4 +1,4 @@
-import HomePageIcons from '../icons/icons';
+import SharedIcons from '../icons/icons';
 import { useNavigate } from 'react-router-dom';
 import { useState, useRef, useEffect } from 'react';
 import './updateForm.scss';
@@ -46,19 +46,19 @@ const UpdateForm = (prop) => {
         return (<div className='updateFormContainer'><form method='post' encType="multipart/form-data" onChange={(ev) => {
 
 
-        }}><label htmlFor="updateTitle"><HomePageIcons propId="title" />Title<br /><input type="text" id="updateTitle" value={postTitle !== undefined ? postTitle : initialTitle} name="title" onInput={(ev) => {
+        }}><label htmlFor="updateTitle"><SharedIcons propId="title" />Title<br /><input type="text" id="updateTitle" value={postTitle !== undefined ? postTitle : initialTitle} name="title" onInput={(ev) => {
 
             getPostTitle(ev.target.value);
 
         }} /></label><br />
 
-            <label htmlFor="updateContent"><HomePageIcons propId="text" />Content<br /><textarea id="updateContent" name="message" value={postMessage !== undefined ? postMessage : initialMessage} maxLength="342" minLength="12" onInput={(ev) => {
+            <label htmlFor="updateContent"><SharedIcons propId="text" />Content<br /><textarea id="updateContent" name="message" value={postMessage !== undefined ? postMessage : initialMessage} maxLength="342" minLength="12" onInput={(ev) => {
 
                 getPostMessage(ev.target.value);
 
             }}></textarea></label><br />
 
-            <label htmlFor="updateImages"><HomePageIcons propId="images" />Image<br /><input type="file" id="updateImages" name="image" ref={fileInputRef} /></label><br />
+            <label htmlFor="updateImages"><SharedIcons propId="images" />Image<br /><input type="file" id="updateImages" name="image" ref={fileInputRef} /></label><br />
 
             <input type="submit" value="Update the Post !" className='updatePostButton' onClick={(ev) => {
                 ev.preventDefault();
